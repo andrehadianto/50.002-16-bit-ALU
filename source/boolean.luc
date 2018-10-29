@@ -1,0 +1,22 @@
+module boolean (
+    input a[16],
+    input b[16],
+    input alufn[6],
+    output boolean[16]
+  ) {
+
+  always {  
+    case (alufn[3:0]) {
+      4h08:
+        boolean = a & b; // AND
+      4h0E:
+        boolean = a || b; // OR
+      4h06:
+        boolean = a ^ b; // XOR
+      4h0A:
+        boolean = a; // A
+      default:
+        boolean = 0;
+        }
+  }
+}

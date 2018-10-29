@@ -1,0 +1,109 @@
+module mojo_top (
+    input clk,              // 50MHz clock
+    input rst_n,            // reset button (active low)
+    output led [8],         // 8 user controllable LEDs
+    output spi_miso,        // AVR SPI MISO
+    output spi_channel [4], // AVR general purpose pins (used by default to select ADC channel)
+    output avr_rx,          // AVR RX (FPGA TX)
+    
+    input io_button[5],
+    input io_dip[3][8],
+    output io_led[3][8],
+    output io_seg[8],
+    output io_sel[4]
+    
+  ) {
+  
+  sig rst;                  // reset signal
+  
+  alu alu;
+  
+  .clk(clk) {
+    // The reset conditioner is used to synchronize the reset signal to the FPGA
+    // clock. This ensures the entire FPGA comes out of reset at the same time.
+    reset_conditioner reset_cond;
+    fsm state = {IDLE, INPUTA, INPUTB, CALCULATE};
+    dff inp_a[16];
+    dff inp_b[16];
+    
+    .rst(rst){
+      counter ctr (#SIZE(3), #DIV(24));
+      multi_seven_seg seg;
+    }
+    dff counter[27];
+  }
+  
+
+  
+  always {
+    reset_cond.in = ~rst_n; // input raw inverted reset signal
+    rst = reset_cond.out;   // conditioned reset
+    
+    led = 8h00;             // turn LEDs off
+    spi_miso = bz;          // not using SPI
+    spi_channel = bzzzz;    // not using flags
+    avr_rx = bz;            // not using serial port
+    
+    io_led = 3x{{8h00}};
+    io_seg = ~seg.seg;
+    io_sel = ~seg.sel;    
+    
+    io_led[2][5:0] = io_dip[2][5:0]; // representing ALUFN
+    alu.a = 0;
+    alu.b = 0;
+    alu.alufn = 0;
+    seg.values = {4h0,4h0,4h0,4h0};
+    
+    case(state.q){
+      state.IDLE:
+        seg.values = {4h8,4h3,4h6,4h4};
+        if (io_button[0] == 1) {
+          state.d = state.INPUTA;
+          }
+        
+      state.INPUTA:
+        seg.values = {4hf,4ha,4hb,4h0};
+        io_led[1][7:0] = io_dip[1];
+        io_led[0][7:0] = io_dip[0];
+        inp_a.d = c{io_dip[1][7:0], io_dip[0][7:0]};
+        
+        if (io_button[2] == 1) {
+          state.d = state.INPUTB;
+        } else if (io_button[3] == 1) {
+          state.d = state.IDLE;
+        }
+        
+      state.INPUTB:
+        seg.values = {4hf,4ha,4hb,4h1};
+        io_led[1][7:0] = io_dip[1];
+        io_led[0][7:0] = io_dip[0];
+        inp_b.d = c{io_dip[1][7:0], io_dip[0][7:0]};
+        
+        if (io_button[1] == 1) {
+          state.d = state.CALCULATE;
+        } else if (io_button[3] == 1) {
+          state.d = state.IDLE;
+        }
+        
+      state.CALCULATE:
+        seg.values = {4ha,4h0,4h6,4ha};
+        alu.a = inp_a.q;
+        alu.b = inp_b.q;
+        
+        alu.alufn = io_dip[2][5:0];
+        
+        io_led[1] = alu.out[15:8];        
+        io_led[0] = alu.out[7:0];
+        
+        if (io_button[3] == 1) {
+          state.d = state.IDLE;
+          }
+      }
+/*   
+    // Automatic testing
+    if (counter.q[26:0] == 0) {
+    
+      }
+    */
+  }
+}

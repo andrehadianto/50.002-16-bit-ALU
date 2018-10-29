@@ -1,0 +1,23 @@
+module shifter (
+    input alufn[6],
+    input a[16],
+    input b[16],
+    output shift[16]
+  ) {
+
+  sig xb;
+  
+  always {
+    xb = b[3:0];    
+    case (alufn[1:0]) {
+      2b00:
+        shift = a << xb;        
+      2b01:
+        shift = a >> xb;        
+      2b11:
+        shift = a >>> xb;      
+      default:
+        shift = 0;
+      }
+  }
+}

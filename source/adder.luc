@@ -1,0 +1,15 @@
+module adder (
+    input a[16],  
+    input b[16],  
+    input alufn[6],
+    output adder[16]
+  ) {
+
+  always {
+    if(alufn[0] == 1){
+      adder = a - b;
+    } else {
+      adder = a + b;
+    }
+  }
+}

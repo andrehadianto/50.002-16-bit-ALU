@@ -1,0 +1,27 @@
+module comparator (
+    input a[16],
+    input b[16],   
+    input alufn[6],
+    output cmp[16]
+  ) {
+  
+  always {
+    cmp[15:1] = 0;           
+    case(alufn[2:1]) {
+      2b01:
+        if(a == b) {
+          cmp[0] = 1;
+        }
+      2b10:
+        if(a < b) {
+          cmp[0] = 1;
+        }
+      2b11:
+        if(a <= b) {
+          cmp[0] = 1;
+        }
+      default:
+        cmp[0] = 0;        
+    }    
+  }
+}
