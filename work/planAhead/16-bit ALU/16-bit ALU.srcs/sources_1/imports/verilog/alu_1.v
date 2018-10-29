@@ -14,28 +14,28 @@ module alu_1 (
   
   
   wire [16-1:0] M_aluadder_adder;
-  adder_4 aluadder (
+  adder_5 aluadder (
     .a(a),
     .b(b),
     .alufn(alufn[0+5-:6]),
     .adder(M_aluadder_adder)
   );
   wire [16-1:0] M_alubool_boolean;
-  boolean_5 alubool (
+  boolean_6 alubool (
     .a(a),
     .b(b),
     .alufn(alufn[0+5-:6]),
     .boolean(M_alubool_boolean)
   );
   wire [16-1:0] M_alucmp_cmp;
-  comparator_6 alucmp (
+  comparator_7 alucmp (
     .a(a),
     .b(b),
     .alufn(alufn[0+5-:6]),
     .cmp(M_alucmp_cmp)
   );
   wire [16-1:0] M_alushift_shift;
-  shifter_7 alushift (
+  shifter_8 alushift (
     .a(a),
     .b(b),
     .alufn(alufn[0+5-:6]),

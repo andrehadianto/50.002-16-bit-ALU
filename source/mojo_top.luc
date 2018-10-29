@@ -22,8 +22,8 @@ module mojo_top (
     // The reset conditioner is used to synchronize the reset signal to the FPGA
     // clock. This ensures the entire FPGA comes out of reset at the same time.
     reset_conditioner reset_cond;
-    fsm state = {IDLE, INPUTA, INPUTB, CALCULATE, AUTO, AUTOA, AUTOB, 
-                   AUTOADD, AUTOSUB, AUTOBOOL, AUTOSHIFT, AUTOCOMPARE, FAIL};
+    fsm state = {IDLE, INPUTA, INPUTB, CALCULATE, 
+                   AUTO, TESTADD1, TESTBOOL1, TESTBOOL2, TESTBOOL3, FAIL};
     dff inp_a[16];
     dff inp_b[16];
     
@@ -105,29 +105,40 @@ module mojo_top (
       // Automatic states  
         
       state.AUTO:
-        seg.values = {4h0, 4hb, 4hc, 4hd};
-                      
-      state.AUTOA: // Display the value of A that will be tested
-        seg.values = {4hf, 4h0, 4hb, 4h0};
-        io_led[1][7:0] = 8b00010110;
-        io_led[0][7:0] = 8b11100101; // 0001 0110 1110 0101
-        inp_a.d = c{8b00010110, 8b11100101};
+        seg.values = {4h0, 4hc, 4hd, 4he};
         
-      state.AUTOB: // Display the value of B that will be tested
-        seg.values = {4hf, 4h0, 4hb, 4h1};
-        io_led[1][7:0] = 8b00010000;
-        io_led[0][7:0] = 8b00000000; // 0001 0110 1110 0101
-        inp_b.d = c{8b00010000, 8b00000000}; // concatenating. May look tedious but
-                                             // making pattern will help
+      state.TESTBOOL1: // depending on the operator, boolean test will lit the LED when the condition is fulfilled
+        seg.values = {4h1, 4h3, 4h3, 4h8}; // BOO1
+        alu.a = 16b0110010110100101;
+        alu.b = 16b0010011001110001;
+        alu.alufn = 6b011000; // AND
         
-      state.AUTOADD:
-        seg.values = {4hf, 4h0, 4h3, 4h3};
-        io_led[2][5:0] = 5b0; // visual help for ALUFN setting
-        alu.alufn = 5b0; // setting the ALUFN value for addition
+        io_led[1] = alu.out[15:8];        
+        io_led[0] = alu.out[7:0];
+        
 
         
-      state.AUTOBOOL:
-        seg.values = {4h1, 4h3, 4h3, 4h6};
+      state.TESTBOOL2:
+        seg.values = {4h1, 4h3, 4h3, 4hF}; // BOO2
+        alu.a = 16b0110010110100101;
+        alu.b = 16b0010011001110001;
+        alu.alufn = 6b011110; // OR
+        
+        io_led[1] = alu.out[15:8];        
+        io_led[0] = alu.out[7:0];
+        
+        
+        
+      state.TESTBOOL3:
+        seg.values = {4h1, 4h3, 4h3, 4hE}; // BOO3
+        alu.a = 16b0110010110100101;
+        alu.b = 16b0010011001110001;
+        alu.alufn = 6b010110; // XOR
+        
+        io_led[1] = alu.out[15:8];        
+        io_led[0] = alu.out[7:0];
+        
+        
         
       state.FAIL:
         seg.values = {4h5, 4h0, 4h8, 4h6};
@@ -143,16 +154,29 @@ module mojo_top (
             }
           
         state.AUTO:
-            state.d = state.AUTOA;
-          
-        state.AUTOA:
-            state.d = state.AUTOB;
+          state.d = state.TESTBOOL1;
         
-        state.AUTOB:
-          if () {        
-            state.d = state.AUTOADD;
-          } else {state.d = state.FAIL;}
+        state.TESTBOOL1:  
+          if (alu.out == 16b0010010000100001) {
+            state.d = state.TESTBOOL2;
+            } else {
+            state.d = state.FAIL;
+            }
           
+        state.TESTBOOL2:
+          if (alu.out == 16b0110011111110101) {
+            state.d = state.TESTBOOL3;
+            } else {
+            state.d = state.FAIL;
+            }
+          
+        state.TESTBOOL3:   
+          if (alu.out == 16b0100001111010100) {
+            state.d = state.TESTBOOL3;
+            } else {
+            state.d = state.FAIL;
+            }
+           
         state.FAIL:
           if (counter.q == 0) {
             state.d = state.IDLE;

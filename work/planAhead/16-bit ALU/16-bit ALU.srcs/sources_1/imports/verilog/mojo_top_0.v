@@ -40,27 +40,41 @@ module mojo_top_0 (
     .in(M_reset_cond_in),
     .out(M_reset_cond_out)
   );
-  localparam IDLE_state = 2'd0;
-  localparam INPUTA_state = 2'd1;
-  localparam INPUTB_state = 2'd2;
-  localparam CALCULATE_state = 2'd3;
+  localparam IDLE_state = 4'd0;
+  localparam INPUTA_state = 4'd1;
+  localparam INPUTB_state = 4'd2;
+  localparam CALCULATE_state = 4'd3;
+  localparam AUTO_state = 4'd4;
+  localparam TESTADD1_state = 4'd5;
+  localparam TESTBOOL1_state = 4'd6;
+  localparam TESTBOOL2_state = 4'd7;
+  localparam TESTBOOL3_state = 4'd8;
+  localparam FAIL_state = 4'd9;
   
-  reg [1:0] M_state_d, M_state_q = IDLE_state;
+  reg [3:0] M_state_d, M_state_q = IDLE_state;
   reg [15:0] M_inp_a_d, M_inp_a_q = 1'h0;
   reg [15:0] M_inp_b_d, M_inp_b_q = 1'h0;
+  wire [3-1:0] M_ctr_value;
+  counter_3 ctr (
+    .clk(clk),
+    .rst(rst),
+    .value(M_ctr_value)
+  );
   wire [7-1:0] M_seg_seg;
   wire [4-1:0] M_seg_sel;
   reg [16-1:0] M_seg_values;
-  multi_seven_seg_3 seg (
+  multi_seven_seg_4 seg (
     .clk(clk),
     .rst(rst),
     .values(M_seg_values),
     .seg(M_seg_seg),
     .sel(M_seg_sel)
   );
+  reg [26:0] M_counter_d, M_counter_q = 1'h0;
   
   always @* begin
     M_state_d = M_state_q;
+    M_counter_d = M_counter_q;
     M_inp_a_d = M_inp_a_q;
     M_inp_b_d = M_inp_b_q;
     
@@ -123,12 +137,83 @@ module mojo_top_0 (
           M_state_d = IDLE_state;
         end
       end
+      AUTO_state: begin
+        M_seg_values = 16'h0bcd;
+      end
+      TESTBOOL1_state: begin
+        M_seg_values = 16'h1338;
+        M_alu_a = 16'h65a5;
+        M_alu_b = 16'h2671;
+        M_alu_alufn = 6'h18;
+        io_led[8+7-:8] = M_alu_out[8+7-:8];
+        io_led[0+7-:8] = M_alu_out[0+7-:8];
+      end
+      TESTBOOL2_state: begin
+        M_seg_values = 16'h1339;
+        M_alu_a = 16'h65a5;
+        M_alu_b = 16'h2671;
+        M_alu_alufn = 6'h1e;
+        io_led[8+7-:8] = M_alu_out[8+7-:8];
+        io_led[0+7-:8] = M_alu_out[0+7-:8];
+      end
+      TESTBOOL3_state: begin
+        M_seg_values = 16'h133e;
+        M_alu_a = 16'h65a5;
+        M_alu_b = 16'h2671;
+        M_alu_alufn = 6'h16;
+        io_led[8+7-:8] = M_alu_out[8+7-:8];
+        io_led[0+7-:8] = M_alu_out[0+7-:8];
+      end
+      FAIL_state: begin
+        M_seg_values = 16'h5086;
+      end
     endcase
+    if (M_counter_q[0+26-:27] == 1'h0) begin
+      
+      case (M_state_q)
+        IDLE_state: begin
+          if (io_button[4+0-:1] == 1'h1) begin
+            M_state_d = AUTO_state;
+          end
+        end
+        AUTO_state: begin
+          M_state_d = TESTBOOL1_state;
+        end
+        TESTBOOL1_state: begin
+          if (M_alu_out == 16'h2421) begin
+            M_state_d = TESTBOOL2_state;
+          end else begin
+            M_state_d = FAIL_state;
+          end
+        end
+        TESTBOOL2_state: begin
+          if (M_alu_out == 16'h67f5) begin
+            M_state_d = TESTBOOL3_state;
+          end else begin
+            M_state_d = FAIL_state;
+          end
+        end
+        TESTBOOL3_state: begin
+          if (M_alu_out == 16'h43d4) begin
+            M_state_d = TESTBOOL3_state;
+          end else begin
+            M_state_d = FAIL_state;
+          end
+        end
+        FAIL_state: begin
+          if (M_counter_q == 1'h0) begin
+            M_state_d = IDLE_state;
+          end
+        end
+      endcase
+    end
+    M_counter_d = M_counter_q + 1'h1;
   end
   
   always @(posedge clk) begin
     M_inp_a_q <= M_inp_a_d;
     M_inp_b_q <= M_inp_b_d;
+    M_counter_q <= M_counter_d;
     M_state_q <= M_state_d;
   end
   

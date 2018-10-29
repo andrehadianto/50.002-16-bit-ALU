@@ -4,20 +4,20 @@
    This is a temporary file and any changes made to it will be destroyed.
 */
 
-module adder_4 (
-    input [15:0] a,
-    input [15:0] b,
-    input [5:0] alufn,
-    output reg [15:0] adder
+/*
+   Parameters:
+     WIDTH = DIGIT_BITS
+*/
+module decoder_11 (
+    input [1:0] in,
+    output reg [3:0] out
   );
   
+  localparam WIDTH = 2'h2;
   
   
   always @* begin
-    if (alufn[0+0-:1] == 1'h1) begin
-      adder = a - b;
-    end else begin
-      adder = a + b;
-    end
+    out = 1'h0;
+    out[(in)*1+0-:1] = 1'h1;
   end
 endmodule

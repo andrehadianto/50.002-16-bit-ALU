@@ -4,32 +4,32 @@
    This is a temporary file and any changes made to it will be destroyed.
 */
 
-module boolean_5 (
+module shifter_8 (
+    input [5:0] alufn,
     input [15:0] a,
     input [15:0] b,
-    input [5:0] alufn,
-    output reg [15:0] boolean
+    output reg [15:0] shift
   );
   
   
   
+  reg xb;
+  
   always @* begin
+    xb = b[0+3-:4];
     
-    case (alufn[0+3-:4])
-      4'h8: begin
-        boolean = a & b;
+    case (alufn[0+1-:2])
+      2'h0: begin
+        shift = a << xb;
       end
-      4'he: begin
-        boolean = a || b;
+      2'h1: begin
+        shift = a >> xb;
       end
-      4'h6: begin
-        boolean = a ^ b;
-      end
-      4'ha: begin
-        boolean = a;
+      2'h3: begin
+        shift = a >>> xb;
       end
       default: begin
-        boolean = 1'h0;
+        shift = 1'h0;
       end
     endcase
   end
