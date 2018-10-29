@@ -22,17 +22,18 @@ module mojo_top (
     // The reset conditioner is used to synchronize the reset signal to the FPGA
     // clock. This ensures the entire FPGA comes out of reset at the same time.
     reset_conditioner reset_cond;
-    fsm state = {IDLE, INPUTA, INPUTB, CALCULATE};
+    fsm state = {IDLE, INPUTA, INPUTB, CALCULATE, AUTO, AUTOA, AUTOB, 
+                   AUTOADD, AUTOSUB, AUTOBOOL, AUTOSHIFT, AUTOCOMPARE, FAIL};
     dff inp_a[16];
     dff inp_b[16];
     
     .rst(rst){
+      
       counter ctr (#SIZE(3), #DIV(24));
       multi_seven_seg seg;
     }
     dff counter[27];
   }
-  as;ldkfj;salkfdja;slkdfja;slkdfjas;ldkfjsa
 
   
   always {
@@ -59,7 +60,7 @@ module mojo_top (
         seg.values = {4h8,4h3,4h6,4h4};
         if (io_button[0] == 1) {
           state.d = state.INPUTA;
-          }
+        } 
         
       state.INPUTA:
         seg.values = {4hf,4ha,4hb,4h0};
@@ -98,12 +99,66 @@ module mojo_top (
         if (io_button[3] == 1) {
           state.d = state.IDLE;
           }
-      }
-/*   
+        
+        
+      // Automatic states  
+        
+      state.AUTO:
+        seg.values = {4h0, 4hb, 4hc, 4hd};
+                      
+      state.AUTOA: // Display the value of A that will be tested
+        seg.values = {4hf, 4h0, 4hb, 4h0};
+        io_led[1][7:0] = 8b00010110;
+        io_led[0][7:0] = 8b11100101; // 0001 0110 1110 0101
+        inp_a.d = c{8b00010110, 8b11100101};
+        
+      state.AUTOB: // Display the value of B that will be tested
+        seg.values = {4hf, 4h0, 4hb, 4h1};
+        io_led[1][7:0] = 8b00010000;
+        io_led[0][7:0] = 8b00000000; // 0001 0110 1110 0101
+        inp_a.d = c{8b00010000, 8b00000000};
+        
+      state.AUTOADD:
+        seg.values = {4hf, 4h0, 4h3, 4h3};
+        
+      state.AUTOBOOL:
+        seg.values = {4h1, 4h3, 4h3, 4h6};
+        
+      state.FAIL:
+        seg.values = {4h5, 4h0, 4h8, 4h6};
+      } 
+ 
     // Automatic testing
     if (counter.q[26:0] == 0) {
+      case(state.q) {
+      
+        state.IDLE:
+          if(io_button[4] == 1) {
+            state.d = state.AUTO;
+            }
+          
+        state.AUTO:
+          if () { // missing arguements
+            state.d = state.AUTOA;
+          } else {state.d = state.FAIL;}
+          
+        state.AUTOA:
+          if () {
+            state.d = state.AUTOB;
+          } else {state.d = state.FAIL;}
+        
+        state.AUTOB:
+          if () {
+            state.d = state.AUTOADD;
+          } else {state.d = state.FAIL;}
+          
+        state.FAIL:
+          if (counter.q == 0) {
+            state.d = state.IDLE;
+          }
+      }  
+    }
+    counter.d = counter.q + 1;
     
-      }
-    */
   }
 }
