@@ -1,0 +1,28 @@
+module shifter (
+    input alufn[6],
+    input a[16],
+    input b[16],
+    output shift[16],
+    output segv[4][4]
+  ) {
+
+  sig xb[4];
+  
+  always {
+    xb = b[3:0];    
+    case (alufn[1:0]) {
+      2b00:
+        segv = {4h0,4hE,4h7,4h9};
+        shift = a << xb;  
+      2b01:
+        segv = {4h0,4hE,4h7,4hD};
+        shift = a >> xb;        
+      2b11:
+        segv = {4h0,4hE,4hD,4h1};
+        shift = a >>> xb;      
+      default:
+        shift = 0;
+        segv = 4x{{4h0}};
+      }
+  }
+}

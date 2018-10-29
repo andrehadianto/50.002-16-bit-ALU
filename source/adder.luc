@@ -1,0 +1,25 @@
+module adder (
+    input a[16],  
+    input b[16],  
+    input alufn[6],
+    output adder[16],
+    output segv[4][4]
+  ) {
+
+  always {
+    case (alufn[1:0]){
+      00:
+        segv = {4h0,4h1,4h4,4h4};
+        adder = a + b;
+      01:
+        segv = {4h0,4hE,4hF,4h2};
+        adder = a - b;
+      10:
+        segv = {4hA,4hA,4hF,4h9};
+        adder = a * b;
+      default:
+        segv = 4x{{4h0}};
+        adder = 16h0;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+module alu (
+    input a[16],  
+    input b[16],  
+    input alufn[6],
+    output alu[16],
+    output segv[4][4]
+  ) {
+  
+  .a(a){
+    .b(b){
+      .alufn(alufn){
+        adder add;
+        boolean boole;
+        compare cmp;
+        shifter shift;
+      }
+    }
+  }
+
+  always {
+    case (alufn[5:4]){
+    2b00:
+      alu = add.adder;
+      segv = add.segv;
+    2b01:
+      alu = boole.boolean;
+      segv = boole.segv;
+    2b10:
+      alu = shift.shift;
+      segv = shift.segv;
+    2b11:
+      alu = cmp.compare;
+      segv = cmp.segv;
+    default:
+      alu = 0;
+      segv = 4x{{4h0}};
+    }
+  }
+}

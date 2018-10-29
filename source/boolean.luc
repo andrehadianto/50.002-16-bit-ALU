@@ -1,0 +1,25 @@
+module boolean (
+    input a[16],
+    input b[16],
+    input alufn[6],
+    output boolean[16],
+    output segv[4][4]
+  ) {
+
+  always {
+    case(alufn[3:1]){
+      3h4:
+        segv = {4h0,4h1,4hA,4h4};
+        boolean = a & b;
+      3h7:
+        segv = {4h0,4h0,4hB,4hD};
+        boolean = a | b;
+      3h3:
+        segv = {4h0,4h7,4hB,4hD};
+        boolean = a ^ b;
+      default:
+        segv = 4x{{4h0}};
+        boolean = 0;
+      }
+    }
+  }

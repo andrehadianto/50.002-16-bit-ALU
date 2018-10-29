@@ -1,0 +1,26 @@
+module compare (
+    input a[16],  
+    input b[16],  
+    input alufn[6],
+    output compare[16],
+    output segv[4][4]
+  ) {
+
+  always {
+    compare = 0;
+    case (alufn[2:1]){
+      01:
+        segv = {4h0,4h0,4h3,4hC};
+        compare[0] = (a == b);
+      10:
+        segv = {4h0,4h0,4h3,4hC};
+        compare[0] = (a < b);
+      11:
+        segv = {4h0,4h0,4h3,4hC};
+        compare[0] = (a <= b);
+      default:
+        compare[0] = 0;
+        segv = {4h0,4h0,4h3,4hC};
+    }
+  }
+}
