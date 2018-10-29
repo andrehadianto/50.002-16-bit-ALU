@@ -23,7 +23,7 @@ module mojo_top (
     // clock. This ensures the entire FPGA comes out of reset at the same time.
     reset_conditioner reset_cond;
     fsm state = {IDLE,A,B,ALUF,TEST,AUTO};
-    fsm teststate = {ADDER,BOOLE,COMPARE,SHIFT}; 
+    //fsm teststate = {ADDER,BOOLE,COMPARE,SHIFT}; 
     dff a[16];
     dff b[16];
     dff alufn[6];
@@ -34,10 +34,10 @@ module mojo_top (
     }
     dff counter[27];
   }
-  decoder num_to_seg (#WIDTH(3));
+  //decoder num_to_seg (#WIDTH(3));
   
   always {
-    num_to_seg.in = ctr.value;
+    //num_to_seg.in = ctr.value;
     if (counter.q[26] == 1){
       counter.d = 0;}
     

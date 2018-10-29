@@ -1,1 +1,142 @@
+module adder_test (
+    input clk,  // clock
+    input rst,  // reset
+    input trigger,
+    
+    output io_led [3][8],   // LEDs on IO Shield
+    output io_seg [8],      // 7-segment LEDs on IO Shield
+    output io_sel [4]       // Digit select on IO Shield
+  ) {
+  adder adder;
+  
+  .clk(clk){
+    .rst(rst){
+      fsm adder_test = {IDLE,TEST1,TEST2,TEST3,TEST4,TEST5,TEST6,TEST7,TEST8,TEST9,FAIL,PASS};
+      multi_seven_seg seg;
+      statecounter statectr;
+    }
+  }
+  always {
+    adder.a = 0;
+    adder.b = 0;
+    adder.alufn = 6b0;
+    io_seg = 8hff;          // turn segments off
+    io_led = 3x{{8h00}};    // turn LEDs off
 
+    seg.values = {4h0,4h0,4h0,4h0}; 
+    io_seg = ~seg.seg; // Connect segments to the driver
+    io_sel = ~seg.sel; // Connect digit select to the driver
+    
+    case(adder_test.q){
+      adder_test.IDLE:
+        seg.values = {4h8,4h4,4h9,4h5};
+        if (trigger == 1){
+          adder_test.d = adder_test.TEST1;
+        }
+      adder_test.TEST1:
+        adder.a = 16b0001010101010101;
+        adder.b = 16b0010101010101011;
+        adder.alufn = 6b0;
+        seg.values = adder.segv;
+        if (adder.adder == 16b0100000000000000 & statectr.msb == 1){
+          adder_test.d = adder_test.TEST2;
+        }
+        else if (statectr.msb == 1){
+          adder_test.d = adder_test.FAIL;
+        }
+      adder_test.TEST2:
+        adder.a = 16b1001010101000101;
+        adder.b = 16b0001111010101111;
+        adder.alufn = 6b0;
+        seg.values = adder.segv;
+        if (adder.adder == 16b01011001111110100 & statectr.msb == 1){
+          adder_test.d = adder_test.TEST3;
+        }
+        else if (statectr.msb == 1){
+          adder_test.d = adder_test.FAIL;
+        }
+      adder_test.TEST3:
+        adder.a = 16b1111000011100000;
+        adder.b = 16b0000111100100000;
+        adder.alufn = 6b0;
+        seg.values = adder.segv;
+        if (adder.adder == 16b1000000000000000 & statectr.msb == 1){
+          adder_test.d = adder_test.TEST4;
+        }
+        else if (statectr.msb == 1){
+          adder_test.d = adder_test.FAIL;
+        }
+      adder_test.TEST4:
+        adder.a = 16b1111000011100000;
+        adder.b = 16b0000000000100000;
+        adder.alufn = 6b1;
+        seg.values = adder.segv;
+        if (adder.adder == 16b1111000011000000 & statectr.msb == 1){
+          adder_test.d = adder_test.TEST5;
+        }
+        else if (statectr.msb == 1){
+          adder_test.d = adder_test.FAIL;
+        }
+      adder_test.TEST5:
+        adder.a = 16b0001111001111111;
+        adder.b = 16b0000010101010101;
+        adder.alufn = 6b1;
+        seg.values = adder.segv;
+        if (adder.adder == 16b01100100101010 & statectr.msb == 1){
+          adder_test.d = adder_test.TEST6;
+        }
+        else if (statectr.msb == 1){
+          adder_test.d = adder_test.FAIL;
+        }
+      adder_test.TEST6:
+        adder.a = 16b1000000000000000;
+        adder.b = 16b0000000000000001;
+        adder.alufn = 6b1;
+        seg.values = adder.segv;
+        if (adder.adder == 16b01111111111111111 & statectr.msb == 1){
+          adder_test.d = adder_test.TEST7;
+        }
+        else if (statectr.msb == 1){
+          adder_test.d = adder_test.FAIL;
+        }
+      adder_test.TEST7:
+        adder.a = 16b0;
+        adder.b = 16b0000000000000001;
+        adder.alufn = 6b10;
+        seg.values = adder.segv;
+        if (adder.adder == 16b0 & statectr.msb == 1){
+          adder_test.d = adder_test.TEST8;
+        }
+        else if (statectr.msb == 1){
+          adder_test.d = adder_test.FAIL;
+        }
+      adder_test.TEST8:
+        adder.a = 16b0000000000000010;
+        adder.b = 16b0000000000001001;
+        adder.alufn = 6b10;
+        seg.values = adder.segv;
+        if (adder.adder == 16b10010 & statectr.msb == 1){
+          adder_test.d = adder_test.TEST9;
+        }
+        else if (statectr.msb == 1){
+          adder_test.d = adder_test.FAIL;
+        }
+      adder_test.TEST9:
+        adder.a = 16b111000000;
+        adder.b = 16b000000111;
+        adder.alufn = 6b10;
+        seg.values = adder.segv;
+        if (adder.adder == 16b0110001000000 & statectr.msb == 1){
+          adder_test.d = adder_test.PASS;
+        }
+        else if (statectr.msb == 1){
+          adder_test.d = adder_test.FAIL;
+        }
+      adder_test.PASS:
+        seg.values = {4hC,4h1,4hE,4hE};
+        
+      adder_test.FAIL:
+        seg.values = {4h6,4h1,4h8,4h9};
+    }
+  }
+}

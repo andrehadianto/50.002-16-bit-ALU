@@ -1,0 +1,16 @@
+module statecounter (
+    input clk,  // clock
+    input rst,  // reset
+    output msb
+  ) {
+
+  dff statecounter[26](.clk(clk),.rst(rst));
+  
+  always {
+    msb = statecounter.q[25];
+    statecounter.d = statecounter.q + 1;
+    if (statecounter.q[25] ==1){
+      statecounter.d[25] = 0;
+    }
+  }
+}
