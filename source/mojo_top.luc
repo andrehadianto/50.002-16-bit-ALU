@@ -101,6 +101,7 @@ module mojo_top (
           }
         
         
+        
       // Automatic states  
         
       state.AUTO:
@@ -116,10 +117,14 @@ module mojo_top (
         seg.values = {4hf, 4h0, 4hb, 4h1};
         io_led[1][7:0] = 8b00010000;
         io_led[0][7:0] = 8b00000000; // 0001 0110 1110 0101
-        inp_a.d = c{8b00010000, 8b00000000};
+        inp_b.d = c{8b00010000, 8b00000000}; // concatenating. May look tedious but
+                                             // making pattern will help
         
       state.AUTOADD:
         seg.values = {4hf, 4h0, 4h3, 4h3};
+        io_led[2][5:0] = 5b0; // visual help for ALUFN setting
+        alu.alufn = 5b0; // setting the ALUFN value for addition
+
         
       state.AUTOBOOL:
         seg.values = {4h1, 4h3, 4h3, 4h6};
@@ -138,17 +143,13 @@ module mojo_top (
             }
           
         state.AUTO:
-          if () { // missing arguements
             state.d = state.AUTOA;
-          } else {state.d = state.FAIL;}
           
         state.AUTOA:
-          if () {
             state.d = state.AUTOB;
-          } else {state.d = state.FAIL;}
         
         state.AUTOB:
-          if () {
+          if () {        
             state.d = state.AUTOADD;
           } else {state.d = state.FAIL;}
           
