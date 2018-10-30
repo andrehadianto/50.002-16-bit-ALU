@@ -23,7 +23,7 @@ module mojo_top (
     // clock. This ensures the entire FPGA comes out of reset at the same time.
     reset_conditioner reset_cond;
     fsm state = {IDLE, INPUTA, INPUTB, CALCULATE, 
-                   AUTO, TESTADD1, TESTBOOL1, TESTBOOL2, TESTBOOL3, FAIL};
+                   AUTO, TESTADD1, TESTBOOL1, TESTBOOL2, TESTBOOL3, TESTBOOL4, TESTSHIFT1, TESTSHIFT2, TESTSHIFT3, FAIL};
     dff inp_a[16];
     dff inp_b[16];
     
@@ -102,11 +102,12 @@ module mojo_top (
         
         
         
-      // Automatic states  
-        
+      // Automatic states          
       state.AUTO:
         seg.values = {4h0, 4hc, 4hd, 4he};
+
         
+      // Boolean test          
       state.TESTBOOL1: // depending on the operator, boolean test will lit the LED when the condition is fulfilled
         seg.values = {4h1, 4h3, 4h3, 4h8}; // BOO1
         alu.a = 16b0110010110100101;
@@ -115,28 +116,45 @@ module mojo_top (
         
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];
-        
-
-        
+                
       state.TESTBOOL2:
         seg.values = {4h1, 4h3, 4h3, 4hF}; // BOO2
-        alu.a = 16b0110010110100101;
-        alu.b = 16b0010011001110001;
+        alu.a = 16b0110010110100101; 
+        alu.b = 16b0010011001110001; 
         alu.alufn = 6b011110; // OR
         
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];
-        
-        
-        
+                       
       state.TESTBOOL3:
         seg.values = {4h1, 4h3, 4h3, 4hE}; // BOO3
         alu.a = 16b0110010110100101;
-        alu.b = 16b0010011001110001;
+        alu.b = 16b0010011001110001; 
         alu.alufn = 6b010110; // XOR
         
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];
+        
+      state.TESTBOOL4:
+        seg.values = {4h1, 4h3, 4h3, 4h6}; // BOOL
+        alu.a = 16b1111111100000000;
+        alu.b = 16b0000000011111111;
+        alu.alufn = 6b011011; // "A"
+        
+        io_led[1] = alu.out[15:8];        
+        io_led[0] = alu.out[7:0];
+        
+      
+      //Shifter Test
+      state.TESTSHIFT1:  
+        seg.values = {4h9, 4h7, 4h5, 4h8}; // SHF1
+        alu.a = 16b0000000000001111;
+        alu.b = 16b1000;
+        alu.alufn = 6b100000; // SHL
+        
+        io_led[1] = alu.out[15:8];
+        io_led[0] = alu.out[7:0];
+        
         
         
         
@@ -157,25 +175,32 @@ module mojo_top (
           state.d = state.TESTBOOL1;
         
         state.TESTBOOL1:  
-          if (alu.out == 16b0010010000100001) {
+          if (alu.out == 16b0010010000100001) { // 1 when a & b
             state.d = state.TESTBOOL2;
             } else {
             state.d = state.FAIL;
             }
           
         state.TESTBOOL2:
-          if (alu.out == 16b0110011111110101) {
+          if (alu.out == 16b0110011111110101) { // 1 when a || b
             state.d = state.TESTBOOL3;
             } else {
             state.d = state.FAIL;
             }
           
         state.TESTBOOL3:   
-          if (alu.out == 16b0100001111010100) {
-            state.d = state.TESTBOOL3;
+          if (alu.out == 16b0100001111010100) { // 1 when a ^ b
+            state.d = state.TESTBOOL4;
             } else {
             state.d = state.FAIL;
             }
+          
+        state.TESTBOOL4:
+          if (alu.out == 16b1111111100000000) { // follows value of a
+            state.d = state.TESTBOOL3;
+            } else {
+            state.d = state.FAIL;
+            } 
            
         state.FAIL:
           if (counter.q == 0) {
