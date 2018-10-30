@@ -8,7 +8,7 @@ module shifter (
   sig xb;
   
   always {
-    xb = b[3:0];    
+    xb = $signed(b[3:0]);    
     case (alufn[1:0]) {
       2b00:
         shift = a << xb;        

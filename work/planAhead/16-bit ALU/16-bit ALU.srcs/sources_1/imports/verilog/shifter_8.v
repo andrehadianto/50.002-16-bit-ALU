@@ -16,7 +16,7 @@ module shifter_8 (
   reg xb;
   
   always @* begin
-    xb = b[0+3-:4];
+    xb = $signed(b[0+3-:4]);
     
     case (alufn[0+1-:2])
       2'h0: begin

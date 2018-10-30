@@ -1,5 +1,5 @@
 //! **************************************************************************
-// Written by: Map P.20131013 on Tue Oct 30 13:34:05 2018
+// Written by: Map P.20131013 on Tue Oct 30 14:15:34 2018
 //! **************************************************************************
 
 SCHEMATIC START;
@@ -88,31 +88,34 @@ TIMEGRP clk = BEL "reset_cond/M_stage_q_3" BEL "reset_cond/M_stage_q_2" BEL
         "seg/ctr/M_ctr_q_10" BEL "seg/ctr/M_ctr_q_11" BEL "seg/ctr/M_ctr_q_12"
         BEL "seg/ctr/M_ctr_q_13" BEL "seg/ctr/M_ctr_q_14" BEL
         "seg/ctr/M_ctr_q_15" BEL "seg/ctr/M_ctr_q_16" BEL "seg/ctr/M_ctr_q_17"
-        BEL "M_inp_b_q_0" BEL "M_inp_b_q_1" BEL "M_inp_b_q_2" BEL
-        "M_inp_b_q_3" BEL "M_inp_b_q_4" BEL "M_inp_b_q_5" BEL "M_inp_b_q_6"
-        BEL "M_inp_b_q_7" BEL "M_inp_b_q_8" BEL "M_inp_b_q_9" BEL
+        BEL "M_state_q_FSM_FFd2_1" BEL "M_state_q_FSM_FFd2_2" BEL
+        "M_inp_b_q_0" BEL "M_inp_b_q_1" BEL "M_inp_b_q_2" BEL "M_inp_b_q_3"
+        BEL "M_inp_b_q_4" BEL "M_inp_b_q_5" BEL "M_inp_b_q_6" BEL
+        "M_inp_b_q_7" BEL "M_inp_b_q_8" BEL "M_inp_b_q_9" BEL
         "M_state_q_FSM_FFd3_1" BEL "M_state_q_FSM_FFd3_2" BEL
         "M_state_q_FSM_FFd3_3" BEL "M_counter_q_0" BEL "M_counter_q_1" BEL
         "M_counter_q_2" BEL "M_counter_q_3" BEL "M_counter_q_4" BEL
         "M_counter_q_5" BEL "M_counter_q_6" BEL "M_counter_q_7" BEL
         "M_counter_q_8" BEL "M_counter_q_9" BEL "M_state_q_FSM_FFd4_1" BEL
-        "M_state_q_FSM_FFd4_2" BEL "M_state_q_FSM_FFd5_1" BEL
-        "M_state_q_FSM_FFd5_2" BEL "M_state_q_FSM_FFd6_1" BEL
-        "M_state_q_FSM_FFd6_2" BEL "M_state_q_FSM_FFd3" BEL
-        "M_state_q_FSM_FFd4" BEL "M_state_q_FSM_FFd5" BEL "M_state_q_FSM_FFd6"
-        BEL "M_inp_a_q_0" BEL "M_inp_a_q_1" BEL "M_inp_a_q_2" BEL
-        "M_inp_a_q_3" BEL "M_inp_a_q_4" BEL "M_inp_a_q_5" BEL "M_inp_a_q_6"
-        BEL "M_inp_a_q_7" BEL "M_inp_a_q_8" BEL "M_inp_a_q_9" BEL
-        "M_inp_a_q_10" BEL "M_inp_a_q_11" BEL "M_inp_a_q_12" BEL
-        "M_inp_a_q_13" BEL "M_inp_a_q_14" BEL "M_inp_a_q_15" BEL
-        "M_inp_b_q_10" BEL "M_inp_b_q_11" BEL "M_inp_b_q_12" BEL
-        "M_inp_b_q_13" BEL "M_inp_b_q_14" BEL "M_inp_b_q_15" BEL
-        "M_counter_q_10" BEL "M_counter_q_11" BEL "M_counter_q_12" BEL
-        "clk_BUFGP/BUFG" BEL "M_counter_q_13" BEL "M_counter_q_14" BEL
-        "M_counter_q_15" BEL "M_counter_q_20" BEL "M_counter_q_16" BEL
-        "M_counter_q_21" BEL "M_counter_q_17" BEL "M_counter_q_22" BEL
-        "M_counter_q_18" BEL "M_counter_q_23" BEL "M_counter_q_24" BEL
-        "M_counter_q_19" BEL "M_counter_q_25" BEL "M_counter_q_26";
+        "M_state_q_FSM_FFd4_2" BEL "M_state_q_FSM_FFd4_3" BEL
+        "M_state_q_FSM_FFd5_1" BEL "M_state_q_FSM_FFd5_2" BEL
+        "M_state_q_FSM_FFd5_3" BEL "M_state_q_FSM_FFd6_1" BEL
+        "M_state_q_FSM_FFd6_2" BEL "M_state_q_FSM_FFd6_3" BEL
+        "M_state_q_FSM_FFd2" BEL "M_state_q_FSM_FFd3" BEL "M_state_q_FSM_FFd4"
+        BEL "M_state_q_FSM_FFd5" BEL "M_state_q_FSM_FFd6" BEL "M_inp_a_q_0"
+        BEL "M_inp_a_q_1" BEL "M_inp_a_q_2" BEL "M_inp_a_q_3" BEL
+        "M_inp_a_q_4" BEL "M_inp_a_q_5" BEL "M_inp_a_q_6" BEL "M_inp_a_q_7"
+        BEL "M_inp_a_q_8" BEL "M_inp_a_q_9" BEL "M_inp_a_q_10" BEL
+        "M_inp_a_q_11" BEL "M_inp_a_q_12" BEL "M_inp_a_q_13" BEL
+        "M_inp_a_q_14" BEL "M_inp_a_q_15" BEL "M_inp_b_q_10" BEL
+        "M_inp_b_q_11" BEL "M_inp_b_q_12" BEL "M_inp_b_q_13" BEL
+        "M_inp_b_q_14" BEL "M_inp_b_q_15" BEL "M_counter_q_10" BEL
+        "M_counter_q_11" BEL "M_counter_q_12" BEL "clk_BUFGP/BUFG" BEL
+        "M_counter_q_13" BEL "M_counter_q_14" BEL "M_counter_q_15" BEL
+        "M_counter_q_20" BEL "M_counter_q_16" BEL "M_counter_q_21" BEL
+        "M_counter_q_17" BEL "M_counter_q_22" BEL "M_counter_q_18" BEL
+        "M_counter_q_23" BEL "M_counter_q_24" BEL "M_counter_q_19" BEL
+        "M_counter_q_25" BEL "M_counter_q_26";
 TS_clk = PERIOD TIMEGRP "clk" 50 MHz HIGH 50%;
 SCHEMATIC END;
 

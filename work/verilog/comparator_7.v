@@ -18,17 +18,17 @@ module comparator_7 (
     
     case (alufn[1+1-:2])
       2'h1: begin
-        if (a == b) begin
+        if ($signed(a) == $signed(b)) begin
           cmp[0+0-:1] = 1'h1;
         end
       end
       2'h2: begin
-        if (a < b) begin
+        if ($signed(a) < $signed(b)) begin
           cmp[0+0-:1] = 1'h1;
         end
       end
       2'h3: begin
-        if (a <= b) begin
+        if ($signed(a) <= $signed(b)) begin
           cmp[0+0-:1] = 1'h1;
         end
       end

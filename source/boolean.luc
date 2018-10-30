@@ -7,14 +7,14 @@ module boolean (
 
   always {  
     case (alufn[3:0]) {
-      4h08:
-        boolean = a & b; // AND
-      4h0E:
-        boolean = a || b; // OR
-      4h06:
-        boolean = a ^ b; // XOR
-      4h0A:
-        boolean = a; // A
+      4b1000:
+        boolean = $signed(a) & $signed(b); // AND
+      4b1110:
+        boolean = $signed(a) || $signed(b); // OR
+      4b0110:
+        boolean = $signed(a) ^ $signed(b); // XOR
+      4b1010:
+        boolean = $signed(a); // A
       default:
         boolean = 0;
         }

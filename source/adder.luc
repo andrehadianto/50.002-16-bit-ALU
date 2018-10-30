@@ -8,11 +8,11 @@ module adder (
   always {
     case(alufn[1:0]) {
       2b00:
-        adder = a + b;
+        adder = $signed(a) + $signed(b);
       2b01:
-        adder = a - b;
+        adder = $signed(a) - $signed(b);
       2b10:
-        adder = a * b;
+        adder = $signed(a) * $signed(b);
       default:
         adder = 0;
         }          

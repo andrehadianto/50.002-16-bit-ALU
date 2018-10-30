@@ -191,7 +191,7 @@ module mojo_top_0 (
       end
       TESTADDER3_state: begin
         M_seg_values = 32'h01040413;
-        M_alu_a = 16'hf0e0;
+        M_alu_a = 16'h70e0;
         M_alu_b = 16'h0f20;
         M_alu_alufn = 6'h00;
         io_led[8+7-:8] = M_alu_out[8+7-:8];
@@ -249,7 +249,7 @@ module mojo_top_0 (
         M_seg_values = 32'h010a0411;
         M_alu_a = 16'h1555;
         M_alu_b = 16'h2aab;
-        M_alu_alufn = 6'h10;
+        M_alu_alufn = 6'h18;
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -257,7 +257,7 @@ module mojo_top_0 (
         M_seg_values = 32'h010a0412;
         M_alu_a = 16'h9545;
         M_alu_b = 16'ha557;
-        M_alu_alufn = 6'h10;
+        M_alu_alufn = 6'h18;
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -265,7 +265,7 @@ module mojo_top_0 (
         M_seg_values = 32'h010a0413;
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0fe5;
-        M_alu_alufn = 6'h10;
+        M_alu_alufn = 6'h18;
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -515,7 +515,7 @@ module mojo_top_0 (
           end
         end
         TESTADDER6_state: begin
-          if (M_alu_out == 16'hffff) begin
+          if (M_alu_out == 16'h7fff) begin
             M_state_d = TESTADDER7_state;
           end else begin
             M_state_d = FAIL_state;

@@ -17,13 +17,13 @@ module adder_5 (
     
     case (alufn[0+1-:2])
       2'h0: begin
-        adder = a + b;
+        adder = $signed(a) + $signed(b);
       end
       2'h1: begin
-        adder = a - b;
+        adder = $signed(a) - $signed(b);
       end
       2'h2: begin
-        adder = a * b;
+        adder = $signed(a) * $signed(b);
       end
       default: begin
         adder = 1'h0;

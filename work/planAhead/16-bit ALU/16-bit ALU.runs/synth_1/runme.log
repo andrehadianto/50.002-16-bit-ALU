@@ -79,7 +79,7 @@ INFO:Xst:3210 - "F:/Documents/Tasks/Singapore/SUTD/ISTD/Computational Structures
     -----------------------------------------------------------------------
     | States             | 43                                             |
     | Transitions        | 127                                            |
-    | Inputs             | 29                                             |
+    | Inputs             | 30                                             |
     | Outputs            | 26                                             |
     | Clock              | clk (rising_edge)                              |
     | Power Up State     | 000000                                         |
@@ -96,7 +96,7 @@ INFO:Xst:3210 - "F:/Documents/Tasks/Singapore/SUTD/ISTD/Computational Structures
     Summary:
 	inferred   1 Adder/Subtractor(s).
 	inferred  59 D-type flip-flop(s).
-	inferred  65 Multiplexer(s).
+	inferred  66 Multiplexer(s).
 	inferred   6 Tristate(s).
 	inferred   1 Finite State Machine(s).
 Unit <mojo_top_0> synthesized.
@@ -132,10 +132,10 @@ Synthesizing Unit <comparator_7>.
 WARNING:Xst:647 - Input <alufn<0:0>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:647 - Input <alufn<5:3>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
     Found 16-bit 4-to-1 multiplexer for signal <cmp> created at line 19.
-    Found 1-bit 4-to-1 multiplexer for signal <alufn[2]_a[15]_Mux_8_o> created at line 19.
+    Found 1-bit 4-to-1 multiplexer for signal <alufn[2]_b[15]_Mux_8_o> created at line 19.
 WARNING:Xst:737 - Found 1-bit latch for signal <cmp<0>>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
     Found 16-bit comparator equal for signal <a[15]_b[15]_equal_1_o> created at line 21
-    Found 16-bit comparator greater for signal <a[15]_b[15]_LessThan_3_o> created at line 26
+    Found 16-bit comparator greater for signal <b[15]_a[15]_LessThan_3_o> created at line 26
     Found 16-bit comparator lessequal for signal <n0004> created at line 31
     Summary:
 	inferred   1 Latch(s).
@@ -219,10 +219,10 @@ Macro Statistics
  16-bit comparator equal                               : 1
  16-bit comparator greater                             : 1
  16-bit comparator lessequal                           : 1
-# Multiplexers                                         : 76
+# Multiplexers                                         : 77
  1-bit 2-to-1 multiplexer                              : 32
  1-bit 4-to-1 multiplexer                              : 1
- 16-bit 2-to-1 multiplexer                             : 27
+ 16-bit 2-to-1 multiplexer                             : 28
  16-bit 4-to-1 multiplexer                             : 3
  18-bit 2-to-1 multiplexer                             : 1
  6-bit 2-to-1 multiplexer                              : 11
@@ -287,10 +287,10 @@ Macro Statistics
  16-bit comparator equal                               : 1
  16-bit comparator greater                             : 1
  16-bit comparator lessequal                           : 1
-# Multiplexers                                         : 75
+# Multiplexers                                         : 76
  1-bit 2-to-1 multiplexer                              : 32
  1-bit 4-to-1 multiplexer                              : 1
- 16-bit 2-to-1 multiplexer                             : 27
+ 16-bit 2-to-1 multiplexer                             : 28
  16-bit 4-to-1 multiplexer                             : 3
  6-bit 2-to-1 multiplexer                              : 11
  7-bit 2-to-1 multiplexer                              : 1
@@ -360,16 +360,16 @@ Optimizing FSM <FSM_0> on signal <M_state_q[1:6]> with sequential encoding.
 Optimizing unit <mojo_top_0> ...
 
 Optimizing unit <comparator_7> ...
-WARNING:Xst:1293 - FF/Latch <M_state_q_FSM_FFd2> has a constant value of 0 in block <mojo_top_0>. This FF/Latch will be trimmed during the optimization process.
-WARNING:Xst:1896 - Due to other FF/Latch trimming, FF/Latch <M_state_q_FSM_FFd1> has a constant value of 0 in block <mojo_top_0>. This FF/Latch will be trimmed during the optimization process.
+WARNING:Xst:1293 - FF/Latch <M_state_q_FSM_FFd1> has a constant value of 0 in block <mojo_top_0>. This FF/Latch will be trimmed during the optimization process.
 
 Mapping all equations...
 Building and optimizing final netlist ...
-Found area constraint ratio of 100 (+ 0) on block mojo_top_0, actual ratio is 7.
+Found area constraint ratio of 100 (+ 0) on block mojo_top_0, actual ratio is 9.
+FlipFlop M_state_q_FSM_FFd2 has been replicated 2 time(s)
 FlipFlop M_state_q_FSM_FFd3 has been replicated 3 time(s)
-FlipFlop M_state_q_FSM_FFd4 has been replicated 2 time(s)
-FlipFlop M_state_q_FSM_FFd5 has been replicated 2 time(s)
-FlipFlop M_state_q_FSM_FFd6 has been replicated 2 time(s)
+FlipFlop M_state_q_FSM_FFd4 has been replicated 3 time(s)
+FlipFlop M_state_q_FSM_FFd5 has been replicated 3 time(s)
+FlipFlop M_state_q_FSM_FFd6 has been replicated 3 time(s)
 
 Final Macro Processing ...
 
@@ -381,8 +381,8 @@ Unit <mojo_top_0> processed.
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 94
- Flip-Flops                                            : 94
+# Registers                                            : 100
+ Flip-Flops                                            : 100
 
 =========================================================================
 
@@ -406,8 +406,8 @@ Clock Information:
 -----------------------------------------------------------------------------+--------------------------+-------+
 Clock Signal                                                                 | Clock buffer(FF name)    | Load  |
 -----------------------------------------------------------------------------+--------------------------+-------+
-clk                                                                          | BUFGP                    | 94    |
-alu/alucmp/alufn[2]_a[15]_Mux_8_o(alu/alucmp/Mmux_alufn[2]_a[15]_Mux_8_o11:O)| NONE(*)(alu/alucmp/cmp_0)| 1     |
+clk                                                                          | BUFGP                    | 100   |
+alu/alucmp/alufn[2]_b[15]_Mux_8_o(alu/alucmp/Mmux_alufn[2]_b[15]_Mux_8_o11:O)| NONE(*)(alu/alucmp/cmp_0)| 1     |
 -----------------------------------------------------------------------------+--------------------------+-------+
 (*) This 1 clock signal(s) are generated by combinatorial logic,
 and XST is not able to identify which are the primary clock signals.
@@ -422,9 +422,9 @@ Timing Summary:
 ---------------
 Speed Grade: -2
 
-   Minimum period: 13.154ns (Maximum Frequency: 76.023MHz)
-   Minimum input arrival time before clock: 12.819ns
-   Maximum output required time after clock: 13.180ns
-   Maximum combinational path delay: 12.410ns
+   Minimum period: 15.094ns (Maximum Frequency: 66.251MHz)
+   Minimum input arrival time before clock: 14.362ns
+   Maximum output required time after clock: 13.503ns
+   Maximum combinational path delay: 13.481ns
 
 =========================================================================

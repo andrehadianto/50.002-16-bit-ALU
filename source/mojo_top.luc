@@ -128,14 +128,14 @@ module mojo_top (
         
       state.TESTADDER3:
         seg.values = {8h1,8h4,8h4,8h13}; // ADD1
-        alu.a = 16b1111000011100000;
+        alu.a = 16b0111000011100000;
         alu.b = 16b0000111100100000;
         alu.alufn = 6b0;    
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0]; 
         
       state.TESTADDER4:
-        seg.values = {8h15,8hF,8h2,8h11}; // ADD1
+        seg.values = {8h15,8hF,8h2,8h11}; // SUB1
         alu.a = 16b1111000011100000;
         alu.b = 16b0000000000100000;
         alu.alufn = 6b1;     
@@ -143,7 +143,7 @@ module mojo_top (
         io_led[0] = alu.out[7:0]; 
         
       state.TESTADDER5:
-        seg.values = {8h15,8hF,8h2,8h12}; // ADD1
+        seg.values = {8h15,8hF,8h2,8h12}; // SUB2
         alu.a = 16b0001111001111111;
         alu.b = 16b0000010101010101;
         alu.alufn = 6b1;    
@@ -151,7 +151,7 @@ module mojo_top (
         io_led[0] = alu.out[7:0]; 
         
       state.TESTADDER6:
-        seg.values = {8h15,8hF,8h2,8h13}; // ADD1
+        seg.values = {8h15,8hF,8h2,8h13}; // SUB3
         alu.a = 16b1000000000000000;
         alu.b = 16b0000000000000001;
         alu.alufn = 6b1;      
@@ -188,7 +188,7 @@ module mojo_top (
         seg.values = {8h1,8hA,8h4,8h11}; // BOO1
         alu.a = 16b0001010101010101;
         alu.b = 16b0010101010101011;
-        alu.alufn = 6b10000; // AND        
+        alu.alufn = 6b11000; // AND        
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];
                 
@@ -196,7 +196,7 @@ module mojo_top (
         seg.values = {8h1,8hA,8h4,8h12}; // BOO2
         alu.a = 16b1001010101000101;
         alu.b = 16b1010010101010111;
-        alu.alufn = 6b10000; // AND        
+        alu.alufn = 6b11000; // AND        
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];
                        
@@ -204,14 +204,14 @@ module mojo_top (
         seg.values = {8h1,8hA,8h4,8h13}; // BOO3
         alu.a = 16b1111000011100000;
         alu.b = 16b0000111111100101;
-        alu.alufn = 6b10000; // AND        
+        alu.alufn = 6b11000; // AND        
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];
         
       state.TESTBOOL4:
-        seg.values = {8h0,8h16,8hD,8h11}; // BOOL
+        seg.values = {8h0,8h10,8hD,8h11}; // BOOL
         alu.a = 16b0001010101010101;
-        alu.b = 16b0010101010101011;
+        alu.b = 16b0010101010101011; 
         alu.alufn = 6b11110;         
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];
@@ -462,7 +462,7 @@ module mojo_top (
             }  
           
         state.TESTADDER6:  
-          if (alu.out == 16b01111111111111111) { 
+          if (alu.out == 16b0111111111111111) { 
             state.d = state.TESTADDER7;
             } else {
             state.d = state.FAIL;
@@ -512,7 +512,7 @@ module mojo_top (
             state.d = state.FAIL;
             }
           
-        state.TESTBOOL4:
+        state.TESTBOOL4:    
           if (alu.out == 16b0011111111111111) { 
             state.d = state.TESTBOOL5;
             } else {

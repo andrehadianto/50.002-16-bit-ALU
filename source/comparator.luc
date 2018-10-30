@@ -9,15 +9,15 @@ module comparator (
     cmp[15:1] = 0;           
     case(alufn[2:1]) {
       2b01:
-        if(a == b) {
+        if($signed(a) == $signed(b)) {
           cmp[0] = 1;
         }
       2b10:
-        if(a < b) {
+        if($signed(a) < $signed(b)) {
           cmp[0] = 1;
         }
       2b11:
-        if(a <= b) {
+        if($signed(a) <= $signed(b)) {
           cmp[0] = 1;
         }
       default:

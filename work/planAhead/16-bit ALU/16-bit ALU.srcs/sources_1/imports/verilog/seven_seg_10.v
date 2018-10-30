@@ -69,7 +69,7 @@ module seven_seg_10 (
         segs = 7'h30;
       end
       5'h12: begin
-        segs = 7'h6d;
+        segs = 7'h5b;
       end
       5'h13: begin
         segs = 7'h4f;
