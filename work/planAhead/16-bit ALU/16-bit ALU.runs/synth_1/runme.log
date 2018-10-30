@@ -68,7 +68,7 @@ WARNING:Xst:2972 - "F:/Documents/Tasks/Singapore/SUTD/ISTD/Computational Structu
 
 Synthesizing Unit <mojo_top_0>.
     Related source file is "F:/Documents/Tasks/Singapore/SUTD/ISTD/Computational Structures/1D/16bit - ALU/16-bit ALU/work/planAhead/16-bit ALU/16-bit ALU.srcs/sources_1/imports/verilog/mojo_top_0.v".
-WARNING:Xst:647 - Input <io_dip<23:22>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <io_dip<22:22>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 INFO:Xst:3210 - "F:/Documents/Tasks/Singapore/SUTD/ISTD/Computational Structures/1D/16bit - ALU/16-bit ALU/work/planAhead/16-bit ALU/16-bit ALU.srcs/sources_1/imports/verilog/mojo_top_0.v" line 91: Output port <value> of the instance <ctr> is unconnected or connected to loadless signal.
     Found 16-bit register for signal <M_inp_b_q>.
     Found 27-bit register for signal <M_counter_q>.
@@ -78,14 +78,14 @@ INFO:Xst:3210 - "F:/Documents/Tasks/Singapore/SUTD/ISTD/Computational Structures
     -----------------------------------------------------------------------
     | States             | 43                                             |
     | Transitions        | 127                                            |
-    | Inputs             | 30                                             |
+    | Inputs             | 28                                             |
     | Outputs            | 26                                             |
     | Clock              | clk (rising_edge)                              |
     | Power Up State     | 000000                                         |
     | Encoding           | auto                                           |
     | Implementation     | LUT                                            |
     -----------------------------------------------------------------------
-    Found 27-bit adder for signal <M_counter_d> created at line 746.
+    Found 27-bit adder for signal <M_counter_d> created at line 898.
     Found 1-bit tristate buffer for signal <spi_miso> created at line 108
     Found 1-bit tristate buffer for signal <spi_channel<3>> created at line 108
     Found 1-bit tristate buffer for signal <spi_channel<2>> created at line 108
@@ -95,7 +95,7 @@ INFO:Xst:3210 - "F:/Documents/Tasks/Singapore/SUTD/ISTD/Computational Structures
     Summary:
 	inferred   1 Adder/Subtractor(s).
 	inferred  59 D-type flip-flop(s).
-	inferred  68 Multiplexer(s).
+	inferred  70 Multiplexer(s).
 	inferred   6 Tristate(s).
 	inferred   1 Finite State Machine(s).
 Unit <mojo_top_0> synthesized.
@@ -213,9 +213,9 @@ Macro Statistics
  16-bit comparator equal                               : 1
  16-bit comparator greater                             : 1
  16-bit comparator lessequal                           : 1
-# Multiplexers                                         : 76
+# Multiplexers                                         : 78
  1-bit 2-to-1 multiplexer                              : 32
- 16-bit 2-to-1 multiplexer                             : 28
+ 16-bit 2-to-1 multiplexer                             : 30
  16-bit 4-to-1 multiplexer                             : 3
  18-bit 2-to-1 multiplexer                             : 1
  6-bit 2-to-1 multiplexer                              : 11
@@ -281,9 +281,9 @@ Macro Statistics
  16-bit comparator equal                               : 1
  16-bit comparator greater                             : 1
  16-bit comparator lessequal                           : 1
-# Multiplexers                                         : 75
+# Multiplexers                                         : 77
  1-bit 2-to-1 multiplexer                              : 32
- 16-bit 2-to-1 multiplexer                             : 28
+ 16-bit 2-to-1 multiplexer                             : 30
  16-bit 4-to-1 multiplexer                             : 3
  6-bit 2-to-1 multiplexer                              : 11
  7-bit 2-to-1 multiplexer                              : 1
@@ -355,13 +355,13 @@ Optimizing unit <mojo_top_0> ...
 
 Mapping all equations...
 Building and optimizing final netlist ...
-Found area constraint ratio of 100 (+ 0) on block mojo_top_0, actual ratio is 12.
-FlipFlop M_state_q_FSM_FFd1 has been replicated 6 time(s)
-FlipFlop M_state_q_FSM_FFd2 has been replicated 4 time(s)
-FlipFlop M_state_q_FSM_FFd3 has been replicated 3 time(s)
-FlipFlop M_state_q_FSM_FFd4 has been replicated 3 time(s)
-FlipFlop M_state_q_FSM_FFd5 has been replicated 3 time(s)
-FlipFlop M_state_q_FSM_FFd6 has been replicated 3 time(s)
+Found area constraint ratio of 100 (+ 0) on block mojo_top_0, actual ratio is 13.
+FlipFlop M_state_q_FSM_FFd1 has been replicated 5 time(s)
+FlipFlop M_state_q_FSM_FFd2 has been replicated 2 time(s)
+FlipFlop M_state_q_FSM_FFd3 has been replicated 2 time(s)
+FlipFlop M_state_q_FSM_FFd4 has been replicated 2 time(s)
+FlipFlop M_state_q_FSM_FFd5 has been replicated 4 time(s)
+FlipFlop M_state_q_FSM_FFd6 has been replicated 4 time(s)
 
 Final Macro Processing ...
 
@@ -373,8 +373,8 @@ Unit <mojo_top_0> processed.
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 109
- Flip-Flops                                            : 109
+# Registers                                            : 106
+ Flip-Flops                                            : 106
 
 =========================================================================
 
@@ -398,7 +398,7 @@ Clock Information:
 -----------------------------------+------------------------+-------+
 Clock Signal                       | Clock buffer(FF name)  | Load  |
 -----------------------------------+------------------------+-------+
-clk                                | BUFGP                  | 109   |
+clk                                | BUFGP                  | 106   |
 -----------------------------------+------------------------+-------+
 
 Asynchronous Control Signals Information:
@@ -409,9 +409,9 @@ Timing Summary:
 ---------------
 Speed Grade: -2
 
-   Minimum period: 17.131ns (Maximum Frequency: 58.374MHz)
-   Minimum input arrival time before clock: 15.156ns
-   Maximum output required time after clock: 16.022ns
-   Maximum combinational path delay: 13.927ns
+   Minimum period: 17.443ns (Maximum Frequency: 57.330MHz)
+   Minimum input arrival time before clock: 17.872ns
+   Maximum output required time after clock: 16.316ns
+   Maximum combinational path delay: 16.745ns
 
 =========================================================================

@@ -16,20 +16,20 @@ module mojo_top (
   
   sig rst;                  // reset signal
   
-  alu alu;
+  alu alu;  // import alu as alu;
   
   .clk(clk) {
     // The reset conditioner is used to synchronize the reset signal to the FPGA
     // clock. This ensures the entire FPGA comes out of reset at the same time.
     reset_conditioner reset_cond;
-    fsm state = {IDLE, INPUTA, INPUTB, CALCULATE, AUTO, 
-              TESTADDER1, TESTADDER2, TESTADDER3, TESTADDER4, TESTADDER5, TESTADDER6, TESTADDER7, TESTADDER8, TESTADDER9, 
-              TESTBOOL1, TESTBOOL2, TESTBOOL3, TESTBOOL4, TESTBOOL5, TESTBOOL6, TESTBOOL7, TESTBOOL8, TESTBOOL9, 
-              TESTSHIFT1, TESTSHIFT2, TESTSHIFT3, TESTSHIFT4, TESTSHIFT5, TESTSHIFT6, TESTSHIFT7, TESTSHIFT8, TESTSHIFT9,
-              TESTCMP1, TESTCMP2, TESTCMP3, TESTCMP4, TESTCMP5, TESTCMP6, TESTCMP7, TESTCMP8, TESTCMP9,
-              PASS, FAIL};
-    dff inp_a[16];
-    dff inp_b[16];
+    fsm state = {IDLE, INPUTA, INPUTB, CALCULATE, AUTO, // Manual testing
+              TESTADDER1, TESTADDER2, TESTADDER3, TESTADDER4, TESTADDER5, TESTADDER6, TESTADDER7, TESTADDER8, TESTADDER9, // Adder test cases
+              TESTBOOL1, TESTBOOL2, TESTBOOL3, TESTBOOL4, TESTBOOL5, TESTBOOL6, TESTBOOL7, TESTBOOL8, TESTBOOL9,   // Boolean test cases
+              TESTSHIFT1, TESTSHIFT2, TESTSHIFT3, TESTSHIFT4, TESTSHIFT5, TESTSHIFT6, TESTSHIFT7, TESTSHIFT8, TESTSHIFT9,  // Shifter test cases
+              TESTCMP1, TESTCMP2, TESTCMP3, TESTCMP4, TESTCMP5, TESTCMP6, TESTCMP7, TESTCMP8, TESTCMP9,   // Comparator test cases
+              PASS, FAIL};  // Other test cases
+    dff inp_a[16];  // to store input of a
+    dff inp_b[16];  // to store input of b
     
     .rst(rst){
       
@@ -53,51 +53,53 @@ module mojo_top (
     io_seg = ~seg.seg;
     io_sel = ~seg.sel;    
     
-    io_led[2][5:0] = io_dip[2][5:0]; // representing ALUFN
-    alu.a = 0;
+    io_led[2][5:0] = io_dip[2][5:0];  // visual representation ALUFN
+    io_led[2][7] = io_dip[2][7];     // Test scrambler indicator
+    alu.a = 0;                        
     alu.b = 0;
     alu.alufn = 0;
-    seg.values = {8h0,8h0,8h0,8h0};
+    seg.values = {8h0,8h0,8h0,8h0};   // random value assignment for a, b, alufn, and seven segment display
     
-    case(state.q){
+    case(state.q){      
+    // Manual Testing
       state.IDLE:
-        seg.values = {8h8,8h4,8h9,8h5};
+        seg.values = {8h8,8h4,8h9,8h5};  // IDLE
         if (io_button[0] == 1) {
-          state.d = state.INPUTA;
+          state.d = state.INPUTA;        // when UP button is pressed, state will change to INPUTA
         } 
         
       state.INPUTA:
-        seg.values = {8h8,8hA,8hC,8h1};
-        io_led[1][7:0] = io_dip[1];
+        seg.values = {8h8,8hA,8hC,8h1};  // INPA
+        io_led[1][7:0] = io_dip[1];      // Visual representation of the input
         io_led[0][7:0] = io_dip[0];
-        inp_a.d = c{io_dip[1][7:0], io_dip[0][7:0]};
+        inp_a.d = c{io_dip[1][7:0], io_dip[0][7:0]};  // Concatenate the value from the dips as the data input of a
         
-        if (io_button[2] == 1) {
+        if (io_button[2] == 1) {         // when DOWN button is pressed, state will change to INPUTB
           state.d = state.INPUTB;
-        } else if (io_button[3] == 1) {
+        } else if (io_button[3] == 1) {  // LEFT button became the reset button
           state.d = state.IDLE;
         }
         
       state.INPUTB:
-        seg.values = {8h8,8hA,8hC,8h2};
-        io_led[1][7:0] = io_dip[1];
+        seg.values = {8h8,8hA,8hC,8h2};  // INPB
+        io_led[1][7:0] = io_dip[1];      // Visual representation of the input
         io_led[0][7:0] = io_dip[0];
-        inp_b.d = c{io_dip[1][7:0], io_dip[0][7:0]};
+        inp_b.d = c{io_dip[1][7:0], io_dip[0][7:0]};  // Concatenate the value from the dips as the data input of b
         
         if (io_button[1] == 1) {
-          state.d = state.CALCULATE;
+          state.d = state.CALCULATE;     // when CENTER button is pressed, calculation based on the ALUFN setup will be performed
         } else if (io_button[3] == 1) {
           state.d = state.IDLE;
         }
         
       state.CALCULATE:
-        seg.values = {8h3,8h1,8h9,8h3};
-        alu.a = inp_a.q;
+        seg.values = {8h3,8h1,8h9,8h3};  // CALC
+        alu.a = inp_a.q;                 // taking the stored value of A as the input A in alu source file
         alu.b = inp_b.q;
         
-        alu.alufn = io_dip[2][5:0];
+        alu.alufn = io_dip[2][5:0];      // taking the dip value as ALUFN value
         
-        io_led[1] = alu.out[15:8];        
+        io_led[1] = alu.out[15:8];       // visual representation of the output
         io_led[0] = alu.out[7:0];
         
         if (io_button[3] == 1) {
@@ -107,7 +109,7 @@ module mojo_top (
               
       // Automatic states          
       state.AUTO:
-        seg.values = {8h1, 8hF, 8hE, 8h10};
+        seg.values = {8h1, 8hF, 8hE, 8h10};  // AUTO
 
       // Adder test
       state.TESTADDER1:
@@ -115,22 +117,34 @@ module mojo_top (
         alu.a = 16b0001010101010101;
         alu.b = 16b0010101010101011;
         alu.alufn = 6b0;       
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];  
         
       state.TESTADDER2:
-        seg.values = {8h1,8h4,8h4,8h12}; // ADD1
+        seg.values = {8h1,8h4,8h4,8h12}; // ADD2
         alu.a = 16b1001010101000101;
         alu.b = 16b0001111010101111;
         alu.alufn = 6b0;     
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0]; 
         
       state.TESTADDER3:
-        seg.values = {8h1,8h4,8h4,8h13}; // ADD1
+        seg.values = {8h1,8h4,8h4,8h13}; // ADD3
         alu.a = 16b0111000011100000;
         alu.b = 16b0000111100100000;
-        alu.alufn = 6b0;    
+        alu.alufn = 6b0;
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }    
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0]; 
         
@@ -138,7 +152,11 @@ module mojo_top (
         seg.values = {8h15,8hF,8h2,8h11}; // SUB1
         alu.a = 16b1111000011100000;
         alu.b = 16b0000000000100000;
-        alu.alufn = 6b1;     
+        alu.alufn = 6b1;
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }      
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0]; 
         
@@ -146,7 +164,11 @@ module mojo_top (
         seg.values = {8h15,8hF,8h2,8h12}; // SUB2
         alu.a = 16b0001111001111111;
         alu.b = 16b0000010101010101;
-        alu.alufn = 6b1;    
+        alu.alufn = 6b1;
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }     
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0]; 
         
@@ -154,266 +176,397 @@ module mojo_top (
         seg.values = {8h15,8hF,8h2,8h13}; // SUB3
         alu.a = 16b1000000000000000;
         alu.b = 16b0000000000000001;
-        alu.alufn = 6b1;      
+        alu.alufn = 6b1;
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }       
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0]; 
         
       state.TESTADDER7:
-        seg.values = {8hA,8hF,8h9,8h11}; // ADD1
+        seg.values = {8hA,8hF,8h9,8h11}; // MUL1
         alu.a = 16b0;
         alu.b = 16b0000000000000001;
-        alu.alufn = 6b10;      
+        alu.alufn = 6b10;
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;   
+          io_led[0] = 8x{0};       
+        }       
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0]; 
         
       state.TESTADDER8:
-        seg.values = {8hA,8hF,8h9,8h12}; // ADD1
-        alu.a = 16b0000000000000010;
+        seg.values = {8hA,8hF,8h9,8h12}; // MUL2
+        alu.a = 16b1000000000000000;
         alu.b = 16b0000000000001001;
-        alu.alufn = 6b10;      
+        alu.alufn = 6b10;
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }       
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0]; 
         
       state.TESTADDER9:
-        seg.values = {8hA,8hF,8h9,8h13}; // ADD1
+        seg.values = {8hA,8hF,8h9,8h13}; // MUL3
         alu.a = 16b111000000;
         alu.b = 16b000000111;
-        alu.alufn = 6b10;       
+        alu.alufn = 6b10;
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }        
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];                 
           
         
       // Boolean test          
       state.TESTBOOL1: // depending on the operator, boolean test will lit the LED when the condition is fulfilled
-        seg.values = {8h1,8hA,8h4,8h11}; // BOO1
+        seg.values = {8h1,8hA,8h4,8h11}; // AND1
         alu.a = 16b0001010101010101;
         alu.b = 16b0010101010101011;
-        alu.alufn = 6b11000; // AND        
+        alu.alufn = 6b11000;  
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }        
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];
                 
       state.TESTBOOL2:
-        seg.values = {8h1,8hA,8h4,8h12}; // BOO2
+        seg.values = {8h1,8hA,8h4,8h12}; // AND2
         alu.a = 16b1001010101000101;
         alu.b = 16b1010010101010111;
-        alu.alufn = 6b11000; // AND        
+        alu.alufn = 6b11000;
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }        
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];
                        
       state.TESTBOOL3:
-        seg.values = {8h1,8hA,8h4,8h13}; // BOO3
+        seg.values = {8h1,8hA,8h4,8h13}; // AND3
         alu.a = 16b1111000011100000;
         alu.b = 16b0000111111100101;
-        alu.alufn = 6b11000; // AND        
+        alu.alufn = 6b11000; 
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }        
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];
         
       state.TESTBOOL4:
-        seg.values = {8h0,8h10,8hD,8h11}; // BOOL
+        seg.values = {8h0,8h10,8hD,8h11}; // OR1
         alu.a = 16b0001010101010101;
         alu.b = 16b0010101010101011; 
-        alu.alufn = 6b11110;         
+        alu.alufn = 6b11110;     
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }     
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];
         
       state.TESTBOOL5:
-        seg.values = {8h0,8h10,8hD,8h12}; // BOOL
+        seg.values = {8h0,8h10,8hD,8h12}; // OR2
         alu.a = 16b1001010101000101;
         alu.b = 16b1010010101010111;
-        alu.alufn = 6b11110;        
+        alu.alufn = 6b11110;   
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }      
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];
         
       state.TESTBOOL6:
-        seg.values = {8h0,8h10,8hD,8h13}; // BOOL
+        seg.values = {8h0,8h10,8hD,8h13}; // OR3
         alu.a = 16b1111000011100000;
         alu.b = 16b0000111111100101;
-        alu.alufn = 6b11110;        
+        alu.alufn = 6b11110;      
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }   
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];  
         
       state.TESTBOOL7:
-        seg.values = {8h7,8h10,8hD,8h11}; // BOOL
+        seg.values = {8h7,8h10,8hD,8h11}; // XOR1
         alu.a = 16b0001010101010101;
         alu.b = 16b0010101010101011;
-        alu.alufn = 6b10110;         
+        alu.alufn = 6b10110; 
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }         
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0]; 
         
       state.TESTBOOL8:
-        seg.values = {8h7,8h10,8hD,8h12}; // BOOL
+        seg.values = {8h7,8h10,8hD,8h12}; // XOR2
         alu.a = 16b1001010101000101;
         alu.b = 16b1010010101010111;
-        alu.alufn = 6b10110;        
+        alu.alufn = 6b10110;      
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }   
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0]; 
         
       state.TESTBOOL9:
-        seg.values = {8h7,8h10,8hD,8h13}; // BOOL
+        seg.values = {8h7,8h10,8hD,8h13}; // XOR3
         alu.a = 16b1111000011100000;
         alu.b = 16b0000111111100101;
-        alu.alufn = 6b10110;        
+        alu.alufn = 6b10110;    
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }     
         io_led[1] = alu.out[15:8];        
         io_led[0] = alu.out[7:0];       
         
       
       //Shifter Test
       state.TESTSHIFT1:  
-        seg.values = {8h15,8h7,8h9,8h11}; // SHF1
+        seg.values = {8h15,8h7,8h9,8h11}; // SHL1
         alu.a = 16b01010101010101;
-        alu.b = 16b1;
-        alu.alufn = 6b100000; // SHL        
+        alu.b = 16b0;
+        alu.alufn = 6b100000; // SHL  
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }       
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0];
         
       state.TESTSHIFT2:  
-        seg.values = {8h15,8h7,8h9,8h12}; // SHF1
+        seg.values = {8h15,8h7,8h9,8h12}; // SHL2
         alu.a = 16b1001010101000101;
         alu.b = 16b1111;
-        alu.alufn = 6b100000; // SHL        
+        alu.alufn = 6b100000; // SHL   
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }      
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0];
         
       state.TESTSHIFT3:  
-        seg.values = {8h15,8h7,8h9,8h13}; // SHF1
+        seg.values = {8h15,8h7,8h9,8h13}; // SHL3
         alu.a = 16b1111000011100000;
         alu.b = 16b0000111100100101;
-        alu.alufn = 6b100000; // SHL        
+        alu.alufn = 6b100000; // SHL  
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }       
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0];
         
       state.TESTSHIFT4:  
-        seg.values = {8h15,8h7,8hD,8h11}; // SHF1
+        seg.values = {8h15,8h7,8hD,8h11}; // SHR1
         alu.a = 16b01010101010101;
-        alu.b = 16b1;
-        alu.alufn = 6b100001; // SHL        
+        alu.b = 16b0;
+        alu.alufn = 6b100001; // SHL   
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }      
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0];
         
       state.TESTSHIFT5:  
-        seg.values = {8h15,8h7,8hD,8h12}; // SHF1
+        seg.values = {8h15,8h7,8hD,8h12}; // SHR2
         alu.a = 16b1001010101000101;
         alu.b = 16b1111;
-        alu.alufn = 6b100001; // SHL        
+        alu.alufn = 6b100001; // SHL    
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }     
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0];
         
       state.TESTSHIFT6:  
-        seg.values = {8h15,8h7,8hD,8h13}; // SHF1
+        seg.values = {8h15,8h7,8hD,8h13}; // SHR3
         alu.a = 16b1111000011100000;
         alu.b = 16b0000111100100101;
-        alu.alufn = 6b100001;// SHL        
+        alu.alufn = 6b100001;// SHL     
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }    
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0];
         
       state.TESTSHIFT7:  
-        seg.values = {8h15,8hD,8h1,8h11}; // SHF1
+        seg.values = {8h15,8hD,8h1,8h11}; // SRA1
         alu.a = 16b0001010101010101;
-        alu.b = 16b1;
-        alu.alufn = 6b100011;// SHL        
+        alu.b = 16b0;
+        alu.alufn = 6b100011;// SHL    
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }     
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0];
         
       state.TESTSHIFT8:  
-        seg.values = {8h15,8hD,8h1,8h12}; // SHF1
+        seg.values = {8h15,8hD,8h1,8h12}; // SRA2
         alu.a = 16b1001010101000101;
         alu.b = 16b1111;
-        alu.alufn = 6b100011; // SHL        
+        alu.alufn = 6b100011; // SHL  
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }       
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0];
         
       state.TESTSHIFT9:  
-        seg.values = {8h15,8hD,8h1,8h13}; // SHF1
+        seg.values = {8h15,8hD,8h1,8h13}; // SRA3
         alu.a = 16b1111000011100000;
         alu.b = 16b0000111100100101;
-        alu.alufn = 6b100011; // SHL        
+        alu.alufn = 6b100011; // SHL
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }         
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0];    
         
         
       //Comparator test          
       state.TESTCMP1:  
-        seg.values = {8h3,8h5,8hB,8h11}; 
+        seg.values = {8h3,8h5,8hB,8h11};  //CEQ1
         alu.a = 16b0001010101010101;
         alu.b = 16b0010101010101011;
         alu.alufn = 6b110011;       
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        } 
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0];       
         
       state.TESTCMP2:  
-        seg.values = {8h3,8h5,8hB,8h12}; 
+        seg.values = {8h3,8h5,8hB,8h12};  //CEQ2
         alu.a = 16b1001010101000101;
         alu.b = 16b0001111010101111;
-        alu.alufn = 6b110011;        
+        alu.alufn = 6b110011;  
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }       
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0]; 
         
       state.TESTCMP3:  
-        seg.values = {8h3,8h5,8hB,8h13}; 
+        seg.values = {8h3,8h5,8hB,8h13};  //CEQ3
         alu.a = 16b1111000011100000;
         alu.b = 16b1111000011100000;
-        alu.alufn = 6b110011;     
+        alu.alufn = 6b110011;   
+        if (io_dip[2][7] == 1){
+          alu.a = 16b1;
+          alu.b = 16b0;
+          io_led[0] = 8x{0};          
+        }   
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0]; 
         
       state.TESTCMP4:  
-        seg.values = {8h3,8h9,8hE,8h11}; 
+        seg.values = {8h3,8h9,8hE,8h11};  //CLT1
         alu.a = 16b0010101010101011;
         alu.b = 16b0001010101010101;
-        alu.alufn = 6b110101;        
+        alu.alufn = 6b110101;    
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b1;  
+          io_led[0] = 8x{0};         
+        }     
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0]; 
         
       state.TESTCMP5:  
-        seg.values = {8h3,8h9,8hE,8h12}; 
+        seg.values = {8h3,8h9,8hE,8h12};  //CLT2
         alu.a = 16b1001010101000101;
         alu.b = 16b0001111010101111;
-        alu.alufn = 6b110101;     
+        alu.alufn = 6b110101;    
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b0;          
+        }  
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0]; 
         
       state.TESTCMP6:  
-        seg.values = {8h3,8h9,8hE,8h13}; 
+        seg.values = {8h3,8h9,8hE,8h13};  //CLT3
         alu.a = 16b1111000011100000;
         alu.b = 16b1111000011100000;
-        alu.alufn = 6b110101;     
+        alu.alufn = 6b110101;   
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b1;   
+          io_led[0] = 8x{0};        
+        }   
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0]; 
         
       state.TESTCMP7:  
-        seg.values = {8h3,8h9,8h5,8h11}; 
+        seg.values = {8h3,8h9,8h5,8h11};  //CLE1
         alu.a = 16b0010101010101011;
         alu.b = 16b0001010101010101;
-        alu.alufn = 6b110111;      
+        alu.alufn = 6b110111;    
+        if (io_dip[2][7] == 1){
+          alu.a = 16b0;
+          alu.b = 16b1;    
+          io_led[0] = 8x{0};       
+        }   
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0]; 
         
       state.TESTCMP8:  
-        seg.values = {8h3,8h9,8h5,8h12}; 
+        seg.values = {8h3,8h9,8h5,8h12};  //CLE2
         alu.a = 16b1001010101000101;
         alu.b = 16b0001111010101111;
-        alu.alufn = 6b110111;      
+        alu.alufn = 6b110111;   
+        if (io_dip[2][7] == 1){
+          alu.a = 16b1;
+          alu.b = 16b0; 
+          io_led[0] = 8x{0};          
+        }    
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0]; 
         
       state.TESTCMP9:  
-        seg.values = {8h3,8h9,8h5,8h13}; 
+        seg.values = {8h3,8h9,8h5,8h13};  //CLE3
         alu.a = 16b1111000011100000;
         alu.b = 16b1111000011100000;
-        alu.alufn = 6b110111;        
+        alu.alufn = 6b110111;    
+        if (io_dip[2][7] == 1){
+          alu.a = 16b1;
+          alu.b = 16b0;    
+          io_led[0] = 8x{0};       
+        }     
         io_led[1] = alu.out[15:8];
-        io_led[0] = alu.out[7:0];                 
-        
+        io_led[0] = alu.out[7:0];
+               
         
       //Other states
       state.PASS:
-        seg.values = {8hC, 8h1, 8h15, 8h15};  
+        seg.values = {8hC, 8h1, 8h15, 8h15}; //PASS 
         
       state.FAIL:
-        seg.values = {8h6, 8h1, 8h8, 8h9};
+        seg.values = {8h6, 8h1, 8h8, 8h9};   //FAIL
       } 
  
-    // Automatic testing
+    // Automated testing
     if (counter.q[26:0] == 0) {
       case(state.q) {
       
@@ -476,7 +629,7 @@ module mojo_top (
             }  
           
         state.TESTADDER8:  
-          if (alu.out == 16b10010) { 
+          if (alu.out == 16b1000000000000000) { 
             state.d = state.TESTADDER9;
             } else {
             state.d = state.FAIL;
@@ -492,7 +645,7 @@ module mojo_top (
           
         // Bool cases
         state.TESTBOOL1:  
-          if (alu.out == 16b0000000000000001) { // 1 when a & b
+          if (alu.out == 16b0000000000000001) { 
             state.d = state.TESTBOOL2;
             } else {
             state.d = state.FAIL;
@@ -557,7 +710,7 @@ module mojo_top (
           
         // Shifter cases
         state.TESTSHIFT1:
-          if (alu.out == 16b10101010101010) { 
+          if (alu.out == 16b01010101010101) { 
             state.d = state.TESTSHIFT2;
             } else {
             state.d = state.FAIL;
@@ -578,7 +731,7 @@ module mojo_top (
             } 
           
         state.TESTSHIFT4:
-          if (alu.out == 16b00101010101010) { 
+          if (alu.out == 16b01010101010101) { 
             state.d = state.TESTSHIFT5;
             } else {
             state.d = state.FAIL;
@@ -599,7 +752,7 @@ module mojo_top (
             } 
           
         state.TESTSHIFT7:
-          if (alu.out == 16b00101010101010) { 
+          if (alu.out == 16b0001010101010101) { 
             state.d = state.TESTSHIFT8;
             } else {
             state.d = state.FAIL;
@@ -683,17 +836,16 @@ module mojo_top (
             } else {
             state.d = state.FAIL;
             }                  
-        
-          
+                
         state.PASS:
           if (counter.q == 0) {
             state.d = state.IDLE;
             }
-                
+                         
         state.FAIL:
           if (counter.q == 0) {
             state.d = state.IDLE;
-          }
+            }
       }  
     }
     counter.d = counter.q + 1;

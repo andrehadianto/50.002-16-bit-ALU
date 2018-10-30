@@ -121,6 +121,7 @@ module mojo_top_0 (
     io_seg = ~M_seg_seg;
     io_sel = ~M_seg_sel;
     io_led[16+0+5-:6] = io_dip[16+0+5-:6];
+    io_led[16+7+0-:1] = io_dip[16+7+0-:1];
     M_alu_a = 1'h0;
     M_alu_b = 1'h0;
     M_alu_alufn = 1'h0;
@@ -178,6 +179,10 @@ module mojo_top_0 (
         M_alu_a = 16'h1555;
         M_alu_b = 16'h2aab;
         M_alu_alufn = 6'h00;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -186,6 +191,10 @@ module mojo_top_0 (
         M_alu_a = 16'h9545;
         M_alu_b = 16'h1eaf;
         M_alu_alufn = 6'h00;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -194,6 +203,10 @@ module mojo_top_0 (
         M_alu_a = 16'h70e0;
         M_alu_b = 16'h0f20;
         M_alu_alufn = 6'h00;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -202,6 +215,10 @@ module mojo_top_0 (
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0020;
         M_alu_alufn = 6'h01;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -210,6 +227,10 @@ module mojo_top_0 (
         M_alu_a = 16'h1e7f;
         M_alu_b = 16'h0555;
         M_alu_alufn = 6'h01;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -218,6 +239,10 @@ module mojo_top_0 (
         M_alu_a = 16'h8000;
         M_alu_b = 16'h0001;
         M_alu_alufn = 6'h01;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -226,14 +251,23 @@ module mojo_top_0 (
         M_alu_a = 16'h0000;
         M_alu_b = 16'h0001;
         M_alu_alufn = 6'h02;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+          io_led[0+7-:8] = 8'h00;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTADDER8_state: begin
         M_seg_values = 32'h0a0f0912;
-        M_alu_a = 16'h0002;
+        M_alu_a = 16'h8000;
         M_alu_b = 16'h0009;
         M_alu_alufn = 6'h02;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -242,6 +276,10 @@ module mojo_top_0 (
         M_alu_a = 16'h01c0;
         M_alu_b = 16'h0007;
         M_alu_alufn = 6'h02;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -250,6 +288,10 @@ module mojo_top_0 (
         M_alu_a = 16'h1555;
         M_alu_b = 16'h2aab;
         M_alu_alufn = 6'h18;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -258,6 +300,10 @@ module mojo_top_0 (
         M_alu_a = 16'h9545;
         M_alu_b = 16'ha557;
         M_alu_alufn = 6'h18;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -266,6 +312,10 @@ module mojo_top_0 (
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0fe5;
         M_alu_alufn = 6'h18;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -274,6 +324,10 @@ module mojo_top_0 (
         M_alu_a = 16'h1555;
         M_alu_b = 16'h2aab;
         M_alu_alufn = 6'h1e;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -282,6 +336,10 @@ module mojo_top_0 (
         M_alu_a = 16'h9545;
         M_alu_b = 16'ha557;
         M_alu_alufn = 6'h1e;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -290,6 +348,10 @@ module mojo_top_0 (
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0fe5;
         M_alu_alufn = 6'h1e;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -298,6 +360,10 @@ module mojo_top_0 (
         M_alu_a = 16'h1555;
         M_alu_b = 16'h2aab;
         M_alu_alufn = 6'h16;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -306,6 +372,10 @@ module mojo_top_0 (
         M_alu_a = 16'h9545;
         M_alu_b = 16'ha557;
         M_alu_alufn = 6'h16;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -314,14 +384,22 @@ module mojo_top_0 (
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0fe5;
         M_alu_alufn = 6'h16;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTSHIFT1_state: begin
         M_seg_values = 32'h15070911;
         M_alu_a = 16'h1555;
-        M_alu_b = 16'h0001;
+        M_alu_b = 16'h0000;
         M_alu_alufn = 6'h20;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -330,6 +408,10 @@ module mojo_top_0 (
         M_alu_a = 16'h9545;
         M_alu_b = 16'h000f;
         M_alu_alufn = 6'h20;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -338,14 +420,22 @@ module mojo_top_0 (
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0f25;
         M_alu_alufn = 6'h20;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTSHIFT4_state: begin
         M_seg_values = 32'h15070d11;
         M_alu_a = 16'h1555;
-        M_alu_b = 16'h0001;
+        M_alu_b = 16'h0000;
         M_alu_alufn = 6'h21;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -354,6 +444,10 @@ module mojo_top_0 (
         M_alu_a = 16'h9545;
         M_alu_b = 16'h000f;
         M_alu_alufn = 6'h21;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -362,14 +456,22 @@ module mojo_top_0 (
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0f25;
         M_alu_alufn = 6'h21;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTSHIFT7_state: begin
         M_seg_values = 32'h150d0111;
         M_alu_a = 16'h1555;
-        M_alu_b = 16'h0001;
+        M_alu_b = 16'h0000;
         M_alu_alufn = 6'h23;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -378,6 +480,10 @@ module mojo_top_0 (
         M_alu_a = 16'h9545;
         M_alu_b = 16'h000f;
         M_alu_alufn = 6'h23;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -386,6 +492,10 @@ module mojo_top_0 (
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0f25;
         M_alu_alufn = 6'h23;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -394,6 +504,10 @@ module mojo_top_0 (
         M_alu_a = 16'h1555;
         M_alu_b = 16'h2aab;
         M_alu_alufn = 6'h33;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -402,6 +516,10 @@ module mojo_top_0 (
         M_alu_a = 16'h9545;
         M_alu_b = 16'h1eaf;
         M_alu_alufn = 6'h33;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -410,6 +528,11 @@ module mojo_top_0 (
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'hf0e0;
         M_alu_alufn = 6'h33;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0001;
+          M_alu_b = 16'h0000;
+          io_led[0+7-:8] = 8'h00;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -418,6 +541,11 @@ module mojo_top_0 (
         M_alu_a = 16'h2aab;
         M_alu_b = 16'h1555;
         M_alu_alufn = 6'h35;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0001;
+          io_led[0+7-:8] = 8'h00;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -426,6 +554,10 @@ module mojo_top_0 (
         M_alu_a = 16'h9545;
         M_alu_b = 16'h1eaf;
         M_alu_alufn = 6'h35;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0000;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -434,6 +566,11 @@ module mojo_top_0 (
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'hf0e0;
         M_alu_alufn = 6'h35;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0001;
+          io_led[0+7-:8] = 8'h00;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -442,6 +579,11 @@ module mojo_top_0 (
         M_alu_a = 16'h2aab;
         M_alu_b = 16'h1555;
         M_alu_alufn = 6'h37;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0000;
+          M_alu_b = 16'h0001;
+          io_led[0+7-:8] = 8'h00;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -450,6 +592,11 @@ module mojo_top_0 (
         M_alu_a = 16'h9545;
         M_alu_b = 16'h1eaf;
         M_alu_alufn = 6'h37;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0001;
+          M_alu_b = 16'h0000;
+          io_led[0+7-:8] = 8'h00;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -458,6 +605,11 @@ module mojo_top_0 (
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'hf0e0;
         M_alu_alufn = 6'h37;
+        if (io_dip[16+7+0-:1] == 1'h1) begin
+          M_alu_a = 16'h0001;
+          M_alu_b = 16'h0000;
+          io_led[0+7-:8] = 8'h00;
+        end
         io_led[8+7-:8] = M_alu_out[8+7-:8];
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
@@ -529,7 +681,7 @@ module mojo_top_0 (
           end
         end
         TESTADDER8_state: begin
-          if (M_alu_out == 16'h0012) begin
+          if (M_alu_out == 16'h8000) begin
             M_state_d = TESTADDER9_state;
           end else begin
             M_state_d = FAIL_state;
@@ -606,7 +758,7 @@ module mojo_top_0 (
           end
         end
         TESTSHIFT1_state: begin
-          if (M_alu_out == 16'h2aaa) begin
+          if (M_alu_out == 16'h1555) begin
             M_state_d = TESTSHIFT2_state;
           end else begin
             M_state_d = FAIL_state;
@@ -627,7 +779,7 @@ module mojo_top_0 (
           end
         end
         TESTSHIFT4_state: begin
-          if (M_alu_out == 16'h0aaa) begin
+          if (M_alu_out == 16'h1555) begin
             M_state_d = TESTSHIFT5_state;
           end else begin
             M_state_d = FAIL_state;
@@ -648,7 +800,7 @@ module mojo_top_0 (
           end
         end
         TESTSHIFT7_state: begin
-          if (M_alu_out == 16'h0aaa) begin
+          if (M_alu_out == 16'h1555) begin
             M_state_d = TESTSHIFT8_state;
           end else begin
             M_state_d = FAIL_state;
