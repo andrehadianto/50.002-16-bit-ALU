@@ -3,7 +3,7 @@ module alu (
     input b[16],  
     input alufn[6],
     output alu[16],
-    output segv[4][4]
+    output segv[4][8]
   ) {
   
   .a(a){
@@ -33,7 +33,7 @@ module alu (
       segv = cmp.segv;
     default:
       alu = 0;
-      segv = 4x{{4h0}};
+      segv = 4x{{8h0}};
     }
   }
 }

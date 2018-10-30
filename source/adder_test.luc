@@ -23,17 +23,19 @@ module adder_test (
     io_seg = 8hff;          // turn segments off
     io_led = 3x{{8h00}};    // turn LEDs off
 
-    seg.values = {4h0,4h0,4h0,4h0}; 
+    seg.values = 4x{{8h0}}; 
     io_seg = ~seg.seg; // Connect segments to the driver
     io_sel = ~seg.sel; // Connect digit select to the driver
     
     case(adder_test.q){
-      adder_test.IDLE:
-        seg.values = {4h8,4h4,4h9,4h5};
+      adder_test.IDLE: //IDLE
+        seg.values = {8h8,8h4,8h9,8h5};
         if (trigger == 1){
           adder_test.d = adder_test.TEST1;
         }    
       adder_test.TEST1:
+        seg.values = {8h1,8h4,8h4,8h11};
+        
         adder.a = 16b0001010101010101;
         adder.b = 16b0010101010101011;
         adder.alufn = 6b0;
@@ -45,6 +47,8 @@ module adder_test (
           adder_test.d = adder_test.FAIL;
         }
       adder_test.TEST2:
+        seg.values = {8h1,8h4,8h4,8h12};
+        
         adder.a = 16b1001010101000101;
         adder.b = 16b0001111010101111;
         adder.alufn = 6b0;
@@ -56,6 +60,8 @@ module adder_test (
           adder_test.d = adder_test.FAIL;
         }
       adder_test.TEST3:
+        seg.values = {8h1,8h4,8h4,8h13};
+        
         adder.a = 16b1111000011100000;
         adder.b = 16b0000111100100000;
         adder.alufn = 6b0;
@@ -67,6 +73,8 @@ module adder_test (
           adder_test.d = adder_test.FAIL;
         }
       adder_test.TEST4:
+        seg.values = {8h15,8hF,8h2,8h11};
+        
         adder.a = 16b1111000011100000;
         adder.b = 16b0000000000100000;
         adder.alufn = 6b1;
@@ -78,6 +86,8 @@ module adder_test (
           adder_test.d = adder_test.FAIL;
         }
       adder_test.TEST5:
+        seg.values = {8h15,8hF,8h2,8h12};
+        
         adder.a = 16b0001111001111111;
         adder.b = 16b0000010101010101;
         adder.alufn = 6b1;
@@ -89,6 +99,8 @@ module adder_test (
           adder_test.d = adder_test.FAIL;
         }
       adder_test.TEST6:
+        seg.values = {8h15,8hF,8h2,8h13};
+        
         adder.a = 16b1000000000000000;
         adder.b = 16b0000000000000001;
         adder.alufn = 6b1;
@@ -100,6 +112,8 @@ module adder_test (
           adder_test.d = adder_test.FAIL;
         }
       adder_test.TEST7:
+        seg.values = {8hA,8hF,8h9,8h11};
+        
         adder.a = 16b0;
         adder.b = 16b0000000000000001;
         adder.alufn = 6b10;
@@ -111,6 +125,8 @@ module adder_test (
           adder_test.d = adder_test.FAIL;
         }
       adder_test.TEST8:
+        seg.values = {8hA,8hF,8h9,8h12};
+        
         adder.a = 16b0000000000000010;
         adder.b = 16b0000000000001001;
         adder.alufn = 6b10;
@@ -122,6 +138,8 @@ module adder_test (
           adder_test.d = adder_test.FAIL;
         }
       adder_test.TEST9:
+        seg.values = {8hA,8hF,8h9,8h13};
+        
         adder.a = 16b111000000;
         adder.b = 16b000000111;
         adder.alufn = 6b10;
@@ -133,10 +151,10 @@ module adder_test (
           adder_test.d = adder_test.FAIL;
         }
       adder_test.PASS:
-        seg.values = {4hC,4h1,4hE,4hE};
+        seg.values = {8hC,8h1,8h15,8h15};
         
       adder_test.FAIL:
-        seg.values = {4h6,4h1,4h8,4h9};
+        seg.values = {8h6,8h1,8h8,8h9};
     }
   }
 }

@@ -53,11 +53,11 @@ module mojo_top (
     alu.a = 0;
     alu.b = 0;
     alu.alufn = 0;
-    seg.values = {4h0,4h0,4h0,4h0};
+    seg.values = {8h0,8h0,8h0,8h0};
     
     case(state.q){
       state.IDLE:
-        seg.values = {4h8,4h4,4h9,4h5};
+        seg.values = {8h8,8h4,8h9,8h5};
         if (io_button[3] == 1){
           state.d = state.A;
         }
@@ -72,7 +72,7 @@ module mojo_top (
         }
         
       state.A:
-        seg.values = {4h0,4h0,4h0,4h1};
+        seg.values = {8h0,8h0,8h0,8h1};
         if (io_button[1] == 1){
           io_led[1] = io_dip[1];
           io_led[0] = io_dip[0];
@@ -83,7 +83,7 @@ module mojo_top (
         }
         
       state.B:
-        seg.values = {4h0,4h0,4h0,4h2};
+        seg.values = {8h0,8h0,8h0,8h2};
         if (io_button[1] == 1){
           io_led[1] = io_dip[1];
           io_led[0] = io_dip[0];        
@@ -94,7 +94,7 @@ module mojo_top (
         }
       
       state.ALUF:
-        seg.values = {4h1,4h9,4hF,4h6};
+        seg.values = {8h1,8h9,8hF,8h6};
         if (io_button[1] == 1){
           io_led[2][7:2] = io_dip[2][7:2];
           alufn.d = io_dip[2][7:2];

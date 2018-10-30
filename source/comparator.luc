@@ -3,24 +3,24 @@ module compare (
     input b[16],  
     input alufn[6],
     output compare[16],
-    output segv[4][4]
+    output segv[4][8]
   ) {
 
   always {
     compare = 0;
     case (alufn[2:1]){
-      01:
-        segv = {4h0,4h0,4h3,4hC};
+      01: //CPEq
+        segv = {8h3,8hC,8h5,8hB};
         compare[0] = (a == b);
-      10:
-        segv = {4h0,4h0,4h3,4hC};
+      10: //CPLt
+        segv = {8h3,8hC,8h9,8hE};
         compare[0] = (a < b);
-      11:
-        segv = {4h0,4h0,4h3,4hC};
+      11: //CPLE
+        segv = {8h3,8hC,8h9,8h5};
         compare[0] = (a <= b);
       default:
         compare[0] = 0;
-        segv = {4h0,4h0,4h3,4hC};
+        segv = {8h0,8h0,8h3,8hC};
     }
   }
 }

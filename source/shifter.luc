@@ -3,7 +3,7 @@ module shifter (
     input a[16],
     input b[16],
     output shift[16],
-    output segv[4][4]
+    output segv[4][8]
   ) {
 
   sig shft[4];
@@ -11,18 +11,18 @@ module shifter (
   always {
     shft = b[3:0];    
     case (alufn[1:0]) {
-      2b00:
-        segv = {4h0,4hE,4h7,4h9};
+      2b00: //SHL
+        segv = {8h0,8h15,8h7,8h9};
         shift = a << shft;  
-      2b01:
-        segv = {4h0,4hE,4h7,4hD};
+      2b01: //SHR
+        segv = {8h0,8h15,8h7,8hD};
         shift = a >> shft;        
-      2b11:
-        segv = {4h0,4hE,4hD,4h1};
+      2b11: //SRA
+        segv = {8h0,8h15,8hD,8h1};
         shift = $signed(a) >>> shft;      
       default:
         shift = 0;
-        segv = 4x{{4h0}};
+        segv = 4x{{8h0}};
       }
   }
 }

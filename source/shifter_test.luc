@@ -21,15 +21,15 @@ module shifter_test (
     shifter.b = 0;
     shifter.alufn = 6b0;
     io_seg = 8hff;          // turn segments off
-    io_led = 3x{{8h00}};    // turn LEDs off
+    io_led = 3x{{8h0}};    // turn LEDs off
 
-    seg.values = {4h0,4h0,4h0,4h0}; 
+    seg.values = {8h0,8h0,8h0,8h0}; 
     io_seg = ~seg.seg; // Connect segments to the driver
     io_sel = ~seg.sel; // Connect digit select to the driver
     
     case(shifter_test.q){
-      shifter_test.IDLE:
-        seg.values = {4h8,4h4,4h9,4h5};
+      shifter_test.IDLE: //IDLE
+        seg.values = {8h8,8h4,8h9,8h5};
         if (trigger == 1){
           shifter_test.d = shifter_test.TEST1;
         }    
@@ -133,10 +133,10 @@ module shifter_test (
           shifter_test.d = shifter_test.FAIL;
         }
       shifter_test.PASS:
-        seg.values = {4hC,4h1,4hE,4hE};
+        seg.values = {8hC,8h1,8h15,8h15};
         
       shifter_test.FAIL:
-        seg.values = {4h6,4h1,4h8,4h9};
+        seg.values = {8h6,8h1,8h8,8h9};
     }
   }
 }

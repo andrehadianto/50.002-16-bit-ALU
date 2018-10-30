@@ -27,15 +27,15 @@ module auto_testing (
     s_test.trigger = 0;
     
     io_seg = 8hff;          // turn segments off
-    io_led = 3x{{8h00}};    // turn LEDs off
+    io_led = 3x{{8h0}};    // turn LEDs off
 
-    seg.values = {4h0,4h0,4h0,4h0}; 
+    seg.values = {8h0,8h0,8h0,8h0}; 
     io_seg = ~seg.seg; // Connect segments to the driver
     io_sel = ~seg.sel; // Connect digit select to the driver
     
     case(auto.q){
       auto.IDLE:
-        seg.values = {4h1,4h4,4h9,4h5};
+        seg.values = {8h1,8h4,8h9,8h5};
         if (io_button[3]==1){
           auto.d = auto.A;}
         else if (io_button[0]==1){

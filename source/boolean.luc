@@ -3,22 +3,22 @@ module boolean (
     input b[16],
     input alufn[6],
     output boolean[16],
-    output segv[4][4]
+    output segv[4][8]
   ) {
 
   always {
     case(alufn[3:1]){
-      3h4:
-        segv = {4h0,4h1,4hA,4h4};
+      3h4: //AND
+        segv = {8h0,8h1,8hA,8h4};
         boolean = a & b;
-      3h7:
-        segv = {4h0,4h0,4hB,4hD};
+      3h7: //OR
+        segv = {8h0,8h0,8h16,8hD};
         boolean = a | b;
-      3h3:
-        segv = {4h0,4h7,4hB,4hD};
+      3h3: //HOR
+        segv = {8h0,8h7,8h16,8hD};
         boolean = a ^ b;
       default:
-        segv = 4x{{4h0}};
+        segv = 4x{{8h0}};
         boolean = 0;
       }
     }

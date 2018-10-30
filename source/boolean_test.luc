@@ -21,19 +21,21 @@ module boolean_test (
     boolean.b = 0;
     boolean.alufn = 6b0;
     io_seg = 8hff;          // turn segments off
-    io_led = 3x{{8h00}};    // turn LEDs off
+    io_led = 3x{{8h0}};    // turn LEDs off
 
-    seg.values = {4h0,4h0,4h0,4h0}; 
+    seg.values = 4x{{8h0}}; 
     io_seg = ~seg.seg; // Connect segments to the driver
     io_sel = ~seg.sel; // Connect digit select to the driver
     
     case(boolean_test.q){
-      boolean_test.IDLE:
-        seg.values = {4h8,4h4,4h9,4h5};
+      boolean_test.IDLE: //IDLE
+        seg.values = {8h8,8h4,8h9,8h5};
         if (trigger == 1){
           boolean_test.d = boolean_test.TEST1;
         }    
       boolean_test.TEST1:
+        seg.values = {8h1,8hA,8h4,8h11};
+        
         boolean.a = 16b0001010101010101;
         boolean.b = 16b0010101010101011;
         boolean.alufn = 6b11000;
@@ -45,6 +47,8 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST2:
+        seg.values = {8h1,8hA,8h4,8h12};
+        
         boolean.a = 16b1001010101000101;
         boolean.b = 16b1010010101010111;
         boolean.alufn = 6b11000;
@@ -56,6 +60,8 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST3:
+        seg.values = {8h1,8hA,8h4,8h13};
+        
         boolean.a = 16b1111000011100000;
         boolean.b = 16b0000111111100101;
         boolean.alufn = 6b110000;
@@ -67,6 +73,8 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST4:
+        seg.values = {8h1,8h4,8h4,8h11};
+        
         boolean.a = 16b0001010101010101;
         boolean.b = 16b0010101010101011;
         boolean.alufn = 6b11110;
@@ -78,6 +86,8 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST5:
+        seg.values = {8h1,8h4,8h4,8h11};
+        
         boolean.a = 16b1001010101000101;
         boolean.b = 16b1010010101010111;
         boolean.alufn = 6b11110;
@@ -89,6 +99,8 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST6:
+        seg.values = {8h1,8h4,8h4,8h11};
+        
         boolean.a = 16b1111000011100000;
         boolean.b = 16b0000111111100101;
         boolean.alufn = 6b11110;
@@ -100,6 +112,8 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST7:
+        seg.values = {8h1,8h4,8h4,8h11};
+        
         boolean.a = 16b0001010101010101;
         boolean.b = 16b0010101010101011;
         boolean.alufn = 6b10110;
@@ -111,6 +125,8 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST8:
+        seg.values = {8h1,8h4,8h4,8h11};
+        
         boolean.a = 16b1001010101000101;
         boolean.b = 16b1010010101010111;
         boolean.alufn = 6b10110;
@@ -122,6 +138,8 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST9:
+        seg.values = {8h1,8h4,8h4,8h11};
+        
         boolean.a = 16b1111000011100000;
         boolean.b = 16b0000111111100101;
         boolean.alufn = 6b10110;
@@ -134,10 +152,10 @@ module boolean_test (
         }
       
       boolean_test.PASS:
-        seg.values = {4hC,4h1,4hE,4hE};
+        seg.values = {8hC,8h1,8h15,8h15};
         
       boolean_test.FAIL:
-        seg.values = {4h6,4h1,4h8,4h9};
+        seg.values = {8h6,8h1,8h8,8h9};
     }
   }
 }

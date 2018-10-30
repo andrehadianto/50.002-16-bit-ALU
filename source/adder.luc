@@ -3,22 +3,22 @@ module adder (
     input b[16],  
     input alufn[6],
     output adder[16],
-    output segv[4][4]
+    output segv[4][8]
   ) {
 
   always {
     case (alufn[1:0]){
-      00:
-        segv = {4h0,4h1,4h4,4h4};
+      00: //ADD
+        segv = {8h0,8h1,8h4,8h4};
         adder = a + b;
-      01:
-        segv = {4h0,4hE,4hF,4h2};
+      01: //SUB
+        segv = {8h0,8h15,8hF,8h2};
         adder = a - b;
-      10:
-        segv = {4hA,4hA,4hF,4h9};
+      10: //nnUL
+        segv = {8hA,8hA,8hF,8h9};
         adder = a * b;
       default:
-        segv = 4x{{4h0}};
+        segv = 4x{{8h0}};
         adder = 16h0;
     }
   }
