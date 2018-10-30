@@ -1,4 +1,4 @@
-module adder_test (
+module comparator_test (
     input clk,  // clock
     input rst,  // reset
     input trigger,

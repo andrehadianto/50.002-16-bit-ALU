@@ -1,0 +1,36 @@
+module auto_testing (
+    input clk,  // clock
+    input rst,  // reset
+    input trigger,
+    
+    output io_led [3][8],   // LEDs on IO Shield
+    output io_seg [8],      // 7-segment LEDs on IO Shield
+    output io_sel [4]       // Digit select on IO Shield
+  ) {
+  
+  .clk(clk){
+    .rst(rst){
+      fsm adder_test = {IDLE,TEST1,TEST2,TEST3,TEST4,TEST5,TEST6,TEST7,TEST8,TEST9,FAIL,PASS};
+      multi_seven_seg seg;
+      statecounter statectr;
+      
+      adder_test a_test;
+      boolean_test b_test;
+      comparator_test c_test;
+      shifter_test s_test;
+    }
+  }
+  always {
+    a_test.trigger = 0;
+    b_test.trigger = 0;
+    c_test.trigger = 0;
+    s_test.trigger = 0;
+    io_seg = 8hff;          // turn segments off
+    io_led = 3x{{8h00}};    // turn LEDs off
+
+    seg.values = {4h0,4h0,4h0,4h0}; 
+    io_seg = ~seg.seg; // Connect segments to the driver
+    io_sel = ~seg.sel; // Connect digit select to the driver
+    
+  }
+}

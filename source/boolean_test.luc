@@ -1,4 +1,4 @@
-module adder_test (
+module boolean_test (
     input clk,  // clock
     input rst,  // reset
     input trigger,

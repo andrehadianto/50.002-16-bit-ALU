@@ -64,6 +64,9 @@ module mojo_top (
         if (io_button[0] == 1){
           state.d = state.ALUF;
         }
+        else if (io_button[2] ==1){
+          state.d = state.TEST;
+        }
         
       state.A:
         seg.values = {4h0,4h0,4h0,4h1};
@@ -74,9 +77,6 @@ module mojo_top (
         }
         else if (io_button[4] ==1){
           state.d = state.B;
-        }
-        else if (io_button[2] ==1){
-          state.d = state.TEST;
         }
         
       state.B:
