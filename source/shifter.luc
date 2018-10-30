@@ -5,17 +5,17 @@ module shifter (
     output shift[16]
   ) {
 
-  sig xb;
+  sig xb[4];
   
   always {
     xb = $signed(b[3:0]);    
     case (alufn[1:0]) {
       2b00:
-        shift = a << xb;        
+        shift = $signed(a) << xb;        
       2b01:
-        shift = a >> xb;        
+        shift = $signed(a) >> xb;        
       2b11:
-        shift = a >>> xb;      
+        shift = $signed(a) >>> xb;      
       default:
         shift = 0;
       }

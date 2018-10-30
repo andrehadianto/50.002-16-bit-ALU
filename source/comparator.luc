@@ -6,20 +6,20 @@ module comparator (
   ) {
   
   always {
-    cmp[15:1] = 0;           
-    case(alufn[2:1]) {
-      2b01:
-        if($signed(a) == $signed(b)) {
+    cmp[15:0] = 0;           
+    case(alufn[2:0]) {
+      3b011:
+        if(a == b) {
           cmp[0] = 1;
         }
-      2b10:
+      3b101:
         if($signed(a) < $signed(b)) {
           cmp[0] = 1;
-        }
-      2b11:
+        } 
+      3b111:
         if($signed(a) <= $signed(b)) {
           cmp[0] = 1;
-        }
+        } 
       default:
         cmp[0] = 0;        
     }    

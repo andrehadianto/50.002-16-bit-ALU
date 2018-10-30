@@ -5,8 +5,8 @@
     <src>boolean.luc</src>
     <src>shifter.luc</src>
     <src>seven_seg.luc</src>
-    <src>multi_seven_seg.luc</src>
     <src>adder.luc</src>
+    <src>multi_seven_seg.luc</src>
     <src top="true">mojo_top.luc</src>
     <src>comparator.luc</src>
     <ucf lib="true">io_shield.ucf</ucf>

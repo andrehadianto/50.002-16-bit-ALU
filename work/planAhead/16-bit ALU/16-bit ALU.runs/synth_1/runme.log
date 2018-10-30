@@ -47,7 +47,6 @@ Elaborating module <boolean_6>.
 Elaborating module <comparator_7>.
 
 Elaborating module <shifter_8>.
-WARNING:HDLCompiler:413 - "F:/Documents/Tasks/Singapore/SUTD/ISTD/Computational Structures/1D/16bit - ALU/16-bit ALU/work/planAhead/16-bit ALU/16-bit ALU.srcs/sources_1/imports/verilog/shifter_8.v" Line 19: Result of 4-bit expression is truncated to fit in 1-bit target.
 
 Elaborating module <reset_conditioner_2>.
 
@@ -96,7 +95,7 @@ INFO:Xst:3210 - "F:/Documents/Tasks/Singapore/SUTD/ISTD/Computational Structures
     Summary:
 	inferred   1 Adder/Subtractor(s).
 	inferred  59 D-type flip-flop(s).
-	inferred  66 Multiplexer(s).
+	inferred  68 Multiplexer(s).
 	inferred   6 Tristate(s).
 	inferred   1 Finite State Machine(s).
 Unit <mojo_top_0> synthesized.
@@ -129,30 +128,27 @@ Unit <boolean_6> synthesized.
 
 Synthesizing Unit <comparator_7>.
     Related source file is "F:/Documents/Tasks/Singapore/SUTD/ISTD/Computational Structures/1D/16bit - ALU/16-bit ALU/work/planAhead/16-bit ALU/16-bit ALU.srcs/sources_1/imports/verilog/comparator_7.v".
-WARNING:Xst:647 - Input <alufn<0:0>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
 WARNING:Xst:647 - Input <alufn<5:3>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
-    Found 16-bit 4-to-1 multiplexer for signal <cmp> created at line 19.
-    Found 1-bit 4-to-1 multiplexer for signal <alufn[2]_b[15]_Mux_8_o> created at line 19.
-WARNING:Xst:737 - Found 1-bit latch for signal <cmp<0>>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+    Found 16-bit 4-to-1 multiplexer for signal <_n0037> created at line 11.
     Found 16-bit comparator equal for signal <a[15]_b[15]_equal_1_o> created at line 21
     Found 16-bit comparator greater for signal <b[15]_a[15]_LessThan_3_o> created at line 26
     Found 16-bit comparator lessequal for signal <n0004> created at line 31
     Summary:
-	inferred   1 Latch(s).
 	inferred   3 Comparator(s).
-	inferred   5 Multiplexer(s).
+	inferred   2 Multiplexer(s).
 Unit <comparator_7> synthesized.
 
 Synthesizing Unit <shifter_8>.
     Related source file is "F:/Documents/Tasks/Singapore/SUTD/ISTD/Computational Structures/1D/16bit - ALU/16-bit ALU/work/planAhead/16-bit ALU/16-bit ALU.srcs/sources_1/imports/verilog/shifter_8.v".
 WARNING:Xst:647 - Input <alufn<5:2>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
-WARNING:Xst:647 - Input <b<15:1>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
-    Found 16-bit shifter logical left for signal <a[15]_b[0]_shift_left_0_OUT> created at line 23
-    Found 16-bit shifter logical right for signal <a[15]_b[0]_shift_right_2_OUT> created at line 29
+WARNING:Xst:647 - Input <b<15:4>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 16-bit shifter logical left for signal <a[15]_b[3]_shift_left_0_OUT> created at line 23
+    Found 16-bit shifter logical right for signal <a[15]_b[3]_shift_right_1_OUT> created at line 26
+    Found 16-bit shifter arithmetic right for signal <a[15]_b[3]_shift_right_2_OUT> created at line 29
     Found 16-bit 4-to-1 multiplexer for signal <shift> created at line 21.
     Summary:
 	inferred   1 Multiplexer(s).
-	inferred   2 Combinational logic shifter(s).
+	inferred   3 Combinational logic shifter(s).
 Unit <shifter_8> synthesized.
 
 Synthesizing Unit <reset_conditioner_2>.
@@ -164,7 +160,7 @@ Unit <reset_conditioner_2> synthesized.
 
 Synthesizing Unit <multi_seven_seg_4>.
     Related source file is "F:/Documents/Tasks/Singapore/SUTD/ISTD/Computational Structures/1D/16bit - ALU/16-bit ALU/work/planAhead/16-bit ALU/16-bit ALU.srcs/sources_1/imports/verilog/multi_seven_seg_4.v".
-    Found 5-bit adder for signal <M_ctr_value[1]_GND_11_o_add_0_OUT> created at line 48.
+    Found 5-bit adder for signal <M_ctr_value[1]_GND_10_o_add_0_OUT> created at line 48.
     Found 63-bit shifter logical right for signal <n0010> created at line 48
     Summary:
 	inferred   1 Adder/Subtractor(s).
@@ -174,7 +170,7 @@ Unit <multi_seven_seg_4> synthesized.
 Synthesizing Unit <counter_9>.
     Related source file is "F:/Documents/Tasks/Singapore/SUTD/ISTD/Computational Structures/1D/16bit - ALU/16-bit ALU/work/planAhead/16-bit ALU/16-bit ALU.srcs/sources_1/imports/verilog/counter_9.v".
     Found 18-bit register for signal <M_ctr_q>.
-    Found 18-bit adder for signal <M_ctr_q[17]_GND_12_o_add_0_OUT> created at line 35.
+    Found 18-bit adder for signal <M_ctr_q[17]_GND_11_o_add_0_OUT> created at line 35.
     Summary:
 	inferred   1 Adder/Subtractor(s).
 	inferred  18 D-type flip-flop(s).
@@ -213,21 +209,19 @@ Macro Statistics
  18-bit register                                       : 1
  27-bit register                                       : 1
  4-bit register                                        : 1
-# Latches                                              : 1
- 1-bit latch                                           : 1
 # Comparators                                          : 3
  16-bit comparator equal                               : 1
  16-bit comparator greater                             : 1
  16-bit comparator lessequal                           : 1
-# Multiplexers                                         : 77
+# Multiplexers                                         : 76
  1-bit 2-to-1 multiplexer                              : 32
- 1-bit 4-to-1 multiplexer                              : 1
  16-bit 2-to-1 multiplexer                             : 28
  16-bit 4-to-1 multiplexer                             : 3
  18-bit 2-to-1 multiplexer                             : 1
  6-bit 2-to-1 multiplexer                              : 11
  7-bit 2-to-1 multiplexer                              : 1
-# Logic shifters                                       : 3
+# Logic shifters                                       : 4
+ 16-bit shifter arithmetic right                       : 1
  16-bit shifter logical left                           : 1
  16-bit shifter logical right                          : 1
  63-bit shifter logical right                          : 1
@@ -287,14 +281,14 @@ Macro Statistics
  16-bit comparator equal                               : 1
  16-bit comparator greater                             : 1
  16-bit comparator lessequal                           : 1
-# Multiplexers                                         : 76
+# Multiplexers                                         : 75
  1-bit 2-to-1 multiplexer                              : 32
- 1-bit 4-to-1 multiplexer                              : 1
  16-bit 2-to-1 multiplexer                             : 28
  16-bit 4-to-1 multiplexer                             : 3
  6-bit 2-to-1 multiplexer                              : 11
  7-bit 2-to-1 multiplexer                              : 1
-# Logic shifters                                       : 3
+# Logic shifters                                       : 4
+ 16-bit shifter arithmetic right                       : 1
  16-bit shifter logical left                           : 1
  16-bit shifter logical right                          : 1
  63-bit shifter logical right                          : 1
@@ -359,13 +353,11 @@ Optimizing FSM <FSM_0> on signal <M_state_q[1:6]> with sequential encoding.
 
 Optimizing unit <mojo_top_0> ...
 
-Optimizing unit <comparator_7> ...
-WARNING:Xst:1293 - FF/Latch <M_state_q_FSM_FFd1> has a constant value of 0 in block <mojo_top_0>. This FF/Latch will be trimmed during the optimization process.
-
 Mapping all equations...
 Building and optimizing final netlist ...
-Found area constraint ratio of 100 (+ 0) on block mojo_top_0, actual ratio is 9.
-FlipFlop M_state_q_FSM_FFd2 has been replicated 2 time(s)
+Found area constraint ratio of 100 (+ 0) on block mojo_top_0, actual ratio is 12.
+FlipFlop M_state_q_FSM_FFd1 has been replicated 6 time(s)
+FlipFlop M_state_q_FSM_FFd2 has been replicated 4 time(s)
 FlipFlop M_state_q_FSM_FFd3 has been replicated 3 time(s)
 FlipFlop M_state_q_FSM_FFd4 has been replicated 3 time(s)
 FlipFlop M_state_q_FSM_FFd5 has been replicated 3 time(s)
@@ -381,8 +373,8 @@ Unit <mojo_top_0> processed.
 Final Register Report
 
 Macro Statistics
-# Registers                                            : 100
- Flip-Flops                                            : 100
+# Registers                                            : 109
+ Flip-Flops                                            : 109
 
 =========================================================================
 
@@ -403,16 +395,11 @@ Partition Implementation Status
 
 Clock Information:
 ------------------
------------------------------------------------------------------------------+--------------------------+-------+
-Clock Signal                                                                 | Clock buffer(FF name)    | Load  |
------------------------------------------------------------------------------+--------------------------+-------+
-clk                                                                          | BUFGP                    | 100   |
-alu/alucmp/alufn[2]_b[15]_Mux_8_o(alu/alucmp/Mmux_alufn[2]_b[15]_Mux_8_o11:O)| NONE(*)(alu/alucmp/cmp_0)| 1     |
------------------------------------------------------------------------------+--------------------------+-------+
-(*) This 1 clock signal(s) are generated by combinatorial logic,
-and XST is not able to identify which are the primary clock signals.
-Please use the CLOCK_SIGNAL constraint to specify the clock signal(s) generated by combinatorial logic.
-INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+clk                                | BUFGP                  | 109   |
+-----------------------------------+------------------------+-------+
 
 Asynchronous Control Signals Information:
 ----------------------------------------
@@ -422,9 +409,9 @@ Timing Summary:
 ---------------
 Speed Grade: -2
 
-   Minimum period: 15.094ns (Maximum Frequency: 66.251MHz)
-   Minimum input arrival time before clock: 14.362ns
-   Maximum output required time after clock: 13.503ns
-   Maximum combinational path delay: 13.481ns
+   Minimum period: 17.131ns (Maximum Frequency: 58.374MHz)
+   Minimum input arrival time before clock: 15.156ns
+   Maximum output required time after clock: 16.022ns
+   Maximum combinational path delay: 13.927ns
 
 =========================================================================

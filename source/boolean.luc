@@ -10,7 +10,7 @@ module boolean (
       4b1000:
         boolean = $signed(a) & $signed(b); // AND
       4b1110:
-        boolean = $signed(a) || $signed(b); // OR
+        boolean = $signed(a) | $signed(b); // OR
       4b0110:
         boolean = $signed(a) ^ $signed(b); // XOR
       4b1010:

@@ -14,20 +14,20 @@ module comparator_7 (
   
   
   always @* begin
-    cmp[1+14-:15] = 1'h0;
+    cmp[0+15-:16] = 1'h0;
     
-    case (alufn[1+1-:2])
-      2'h1: begin
-        if ($signed(a) == $signed(b)) begin
+    case (alufn[0+2-:3])
+      3'h3: begin
+        if (a == b) begin
           cmp[0+0-:1] = 1'h1;
         end
       end
-      2'h2: begin
+      3'h5: begin
         if ($signed(a) < $signed(b)) begin
           cmp[0+0-:1] = 1'h1;
         end
       end
-      2'h3: begin
+      3'h7: begin
         if ($signed(a) <= $signed(b)) begin
           cmp[0+0-:1] = 1'h1;
         end

@@ -217,7 +217,7 @@ module mojo_top (
         io_led[0] = alu.out[7:0];
         
       state.TESTBOOL5:
-        seg.values = {8h0,8h16,8hD,8h12}; // BOOL
+        seg.values = {8h0,8h10,8hD,8h12}; // BOOL
         alu.a = 16b1001010101000101;
         alu.b = 16b1010010101010111;
         alu.alufn = 6b11110;        
@@ -225,7 +225,7 @@ module mojo_top (
         io_led[0] = alu.out[7:0];
         
       state.TESTBOOL6:
-        seg.values = {8h0,8h16,8hD,8h13}; // BOOL
+        seg.values = {8h0,8h10,8hD,8h13}; // BOOL
         alu.a = 16b1111000011100000;
         alu.b = 16b0000111111100101;
         alu.alufn = 6b11110;        
@@ -233,7 +233,7 @@ module mojo_top (
         io_led[0] = alu.out[7:0];  
         
       state.TESTBOOL7:
-        seg.values = {8h7,8h16,8hD,8h11}; // BOOL
+        seg.values = {8h7,8h10,8hD,8h11}; // BOOL
         alu.a = 16b0001010101010101;
         alu.b = 16b0010101010101011;
         alu.alufn = 6b10110;         
@@ -241,7 +241,7 @@ module mojo_top (
         io_led[0] = alu.out[7:0]; 
         
       state.TESTBOOL8:
-        seg.values = {8h7,8h16,8hD,8h12}; // BOOL
+        seg.values = {8h7,8h10,8hD,8h12}; // BOOL
         alu.a = 16b1001010101000101;
         alu.b = 16b1010010101010111;
         alu.alufn = 6b10110;        
@@ -249,7 +249,7 @@ module mojo_top (
         io_led[0] = alu.out[7:0]; 
         
       state.TESTBOOL9:
-        seg.values = {8h7,8h16,8hD,8h13}; // BOOL
+        seg.values = {8h7,8h10,8hD,8h13}; // BOOL
         alu.a = 16b1111000011100000;
         alu.b = 16b0000111111100101;
         alu.alufn = 6b10110;        
@@ -358,8 +358,8 @@ module mojo_top (
         
       state.TESTCMP4:  
         seg.values = {8h3,8h9,8hE,8h11}; 
-        alu.a = 16b0001010101010101;
-        alu.b = 16b0010101010101011;
+        alu.a = 16b0010101010101011;
+        alu.b = 16b0001010101010101;
         alu.alufn = 6b110101;        
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0]; 
@@ -382,8 +382,8 @@ module mojo_top (
         
       state.TESTCMP7:  
         seg.values = {8h3,8h9,8h5,8h11}; 
-        alu.a = 16b0001010101010101;
-        alu.b = 16b0010101010101011;
+        alu.a = 16b0010101010101011;
+        alu.b = 16b0001010101010101;
         alu.alufn = 6b110111;      
         io_led[1] = alu.out[15:8];
         io_led[0] = alu.out[7:0]; 
@@ -534,7 +534,7 @@ module mojo_top (
             }  
           
         state.TESTBOOL7:
-          if (alu.out == 16b0001111111111110) { 
+          if (alu.out == 16b0011111111111110) { 
             state.d = state.TESTBOOL8;
             } else {
             state.d = state.FAIL;

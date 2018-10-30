@@ -17,16 +17,16 @@ module boolean_6 (
     
     case (alufn[0+3-:4])
       4'h8: begin
-        boolean = a & b;
+        boolean = $signed(a) & $signed(b);
       end
       4'he: begin
-        boolean = a || b;
+        boolean = $signed(a) | $signed(b);
       end
       4'h6: begin
-        boolean = a ^ b;
+        boolean = $signed(a) ^ $signed(b);
       end
       4'ha: begin
-        boolean = a;
+        boolean = $signed(a);
       end
       default: begin
         boolean = 1'h0;

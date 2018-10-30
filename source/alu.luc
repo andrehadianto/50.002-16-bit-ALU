@@ -18,20 +18,16 @@ module alu (
     }
   
   
-  always {
-    
+  always {    
     out = 0;
     
     case(alufn[5:4]) { 
       2b00:  
-        out = aluadder.adder;
-        
+        out = aluadder.adder;        
       2b11:  
-        out = alucmp.cmp;
-        
+        out = alucmp.cmp;       
       2b01:  
-        out = alubool.boolean;
-        
+        out = alubool.boolean;       
       2b10:  
         out = alushift.shift;  
         

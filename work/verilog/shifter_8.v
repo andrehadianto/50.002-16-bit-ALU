@@ -13,20 +13,20 @@ module shifter_8 (
   
   
   
-  reg xb;
+  reg [3:0] xb;
   
   always @* begin
     xb = $signed(b[0+3-:4]);
     
     case (alufn[0+1-:2])
       2'h0: begin
-        shift = a << xb;
+        shift = $signed(a) << xb;
       end
       2'h1: begin
-        shift = a >> xb;
+        shift = $signed(a) >> xb;
       end
       2'h3: begin
-        shift = a >>> xb;
+        shift = $signed(a) >>> xb;
       end
       default: begin
         shift = 1'h0;
