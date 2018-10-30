@@ -14,10 +14,20 @@ module adder_5 (
   
   
   always @* begin
-    if (alufn[0+0-:1] == 1'h1) begin
-      adder = a - b;
-    end else begin
-      adder = a + b;
-    end
+    
+    case (alufn[0+1-:2])
+      2'h0: begin
+        adder = a + b;
+      end
+      2'h1: begin
+        adder = a - b;
+      end
+      2'h2: begin
+        adder = a * b;
+      end
+      default: begin
+        adder = 1'h0;
+      end
+    endcase
   end
 endmodule

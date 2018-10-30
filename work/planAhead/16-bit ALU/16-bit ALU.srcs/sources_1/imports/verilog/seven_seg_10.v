@@ -5,7 +5,7 @@
 */
 
 module seven_seg_10 (
-    input [3:0] char,
+    input [7:0] char,
     output reg [6:0] segs
   );
   
@@ -15,25 +15,25 @@ module seven_seg_10 (
     
     case (char)
       1'h0: begin
-        segs = 7'h77;
+        segs = 7'h00;
       end
       1'h1: begin
-        segs = 7'h7f;
+        segs = 7'h77;
       end
       2'h2: begin
-        segs = 7'h71;
+        segs = 7'h7f;
       end
       2'h3: begin
-        segs = 7'h3f;
+        segs = 7'h39;
       end
       3'h4: begin
-        segs = 7'h79;
+        segs = 7'h3f;
       end
       3'h5: begin
-        segs = 7'h71;
+        segs = 7'h79;
       end
       3'h6: begin
-        segs = 7'h38;
+        segs = 7'h71;
       end
       3'h7: begin
         segs = 7'h76;
@@ -42,25 +42,55 @@ module seven_seg_10 (
         segs = 7'h30;
       end
       4'h9: begin
-        segs = 7'h6d;
+        segs = 7'h38;
       end
       4'ha: begin
-        segs = 7'h39;
+        segs = 7'h37;
       end
       4'hb: begin
-        segs = 7'h40;
+        segs = 7'h67;
       end
       4'hc: begin
-        segs = 7'h1c;
+        segs = 7'h73;
       end
       4'hd: begin
-        segs = 7'h78;
+        segs = 7'h31;
       end
       4'he: begin
-        segs = 7'h5c;
+        segs = 7'h78;
       end
       4'hf: begin
+        segs = 7'h3e;
+      end
+      5'h10: begin
+        segs = 7'h3f;
+      end
+      5'h11: begin
+        segs = 7'h30;
+      end
+      5'h12: begin
+        segs = 7'h6d;
+      end
+      5'h13: begin
         segs = 7'h4f;
+      end
+      5'h14: begin
+        segs = 7'h66;
+      end
+      5'h15: begin
+        segs = 7'h6d;
+      end
+      5'h16: begin
+        segs = 7'h7d;
+      end
+      5'h17: begin
+        segs = 7'h07;
+      end
+      5'h18: begin
+        segs = 7'h7f;
+      end
+      5'h19: begin
+        segs = 7'h6f;
       end
       default: begin
         segs = 7'h00;
