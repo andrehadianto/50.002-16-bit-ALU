@@ -15,6 +15,7 @@ If any mistake occurs, press the LEFT button to reset the FPGA to its initial st
 ## Automated Testing
 To run the automated testing, just press the RIGHT button and wait for the display to show the word "AUTO".
 The automated testing tests each operations 3times in this order:
+
 ADDER
 - ADDition
 - SUBtraction
