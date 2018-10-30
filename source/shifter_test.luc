@@ -23,7 +23,7 @@ module shifter_test (
     io_seg = 8hff;          // turn segments off
     io_led = 3x{{8h0}};    // turn LEDs off
 
-    seg.values = {8h0,8h0,8h0,8h0}; 
+    seg.values = 4x{{8h0}}; 
     io_seg = ~seg.seg; // Connect segments to the driver
     io_sel = ~seg.sel; // Connect digit select to the driver
     
@@ -34,6 +34,8 @@ module shifter_test (
           shifter_test.d = shifter_test.TEST1;
         }    
       shifter_test.TEST1:
+        seg.values = {8h15,8h7,8h9,8h11};
+        
         shifter.a = 16b01010101010101;
         shifter.b = 16b1;
         shifter.alufn = 6b100000;
@@ -45,6 +47,8 @@ module shifter_test (
           shifter_test.d = shifter_test.FAIL;
         }
       shifter_test.TEST2:
+        seg.values = {8h15,8h7,8h9,8h12};
+        
         shifter.a = 16b1001010101000101;
         shifter.b = 16b1111;
         shifter.alufn = 6b100000;
@@ -56,6 +60,8 @@ module shifter_test (
           shifter_test.d = shifter_test.FAIL;
         }
       shifter_test.TEST3:
+        seg.values = {8h15,8h7,8h9,8h13};
+        
         shifter.a = 16b1111000011100000;
         shifter.b = 16b0000111100100101;
         shifter.alufn = 6b100000;
@@ -67,6 +73,8 @@ module shifter_test (
           shifter_test.d = shifter_test.FAIL;
         }
       shifter_test.TEST4:
+        seg.values = {8h15,8h7,8hD,8h11};
+        
         shifter.a = 16b01010101010101;
         shifter.b = 16b1;
         shifter.alufn = 6b100001;
@@ -78,6 +86,8 @@ module shifter_test (
           shifter_test.d = shifter_test.FAIL;
         }
       shifter_test.TEST5:
+        seg.values = {8h15,8h7,8hD,8h12};
+        
         shifter.a = 16b1001010101000101;
         shifter.b = 16b1111;
         shifter.alufn = 6b100001;
@@ -89,6 +99,8 @@ module shifter_test (
           shifter_test.d = shifter_test.FAIL;
         }
       shifter_test.TEST6:
+        seg.values = {8h15,8h7,8hD,8h13};
+        
         shifter.a = 16b1111000011100000;
         shifter.b = 16b0000111100100101;
         shifter.alufn = 6b100001;
@@ -100,6 +112,8 @@ module shifter_test (
           shifter_test.d = shifter_test.FAIL;
         }
       shifter_test.TEST7:
+        seg.values = {8h15,8hD,8h1,8h11};
+        
         shifter.a = 16b0001010101010101;
         shifter.b = 16b1;
         shifter.alufn = 6b100011;
@@ -111,6 +125,8 @@ module shifter_test (
           shifter_test.d = shifter_test.FAIL;
         }
       shifter_test.TEST8:
+        seg.values = {8h15,8hD,8h1,8h12};
+        
         shifter.a = 16b1001010101000101;
         shifter.b = 16b1111;
         shifter.alufn = 6b100011;
@@ -122,6 +138,8 @@ module shifter_test (
           shifter_test.d = shifter_test.FAIL;
         }
       shifter_test.TEST9:
+        seg.values = {8h15,8hD,8h1,8h13};
+        
         shifter.a = 16b1111000011100000;
         shifter.b = 16b0000111100100101;
         shifter.alufn = 6b100011;

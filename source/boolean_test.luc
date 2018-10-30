@@ -73,7 +73,7 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST4:
-        seg.values = {8h1,8h4,8h4,8h11};
+        seg.values = {8h0,8h16,8hD,8h11};
         
         boolean.a = 16b0001010101010101;
         boolean.b = 16b0010101010101011;
@@ -86,7 +86,7 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST5:
-        seg.values = {8h1,8h4,8h4,8h11};
+        seg.values = {8h0,8h16,8hD,8h12};
         
         boolean.a = 16b1001010101000101;
         boolean.b = 16b1010010101010111;
@@ -99,7 +99,7 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST6:
-        seg.values = {8h1,8h4,8h4,8h11};
+        seg.values = {8h0,8h16,8hD,8h12};
         
         boolean.a = 16b1111000011100000;
         boolean.b = 16b0000111111100101;
@@ -112,7 +112,7 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST7:
-        seg.values = {8h1,8h4,8h4,8h11};
+        seg.values = {8h7,8h16,8hD,8h11};
         
         boolean.a = 16b0001010101010101;
         boolean.b = 16b0010101010101011;
@@ -125,7 +125,7 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST8:
-        seg.values = {8h1,8h4,8h4,8h11};
+        seg.values = {8h7,8h16,8hD,8h12};
         
         boolean.a = 16b1001010101000101;
         boolean.b = 16b1010010101010111;
@@ -138,7 +138,7 @@ module boolean_test (
           boolean_test.d = boolean_test.FAIL;
         }
       boolean_test.TEST9:
-        seg.values = {8h1,8h4,8h4,8h11};
+        seg.values = {8h7,8h16,8hD,8h13};
         
         boolean.a = 16b1111000011100000;
         boolean.b = 16b0000111111100101;

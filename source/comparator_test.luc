@@ -34,6 +34,8 @@ module comparator_test (
           cmp_test.d = cmp_test.TEST1;
         }    
       cmp_test.TEST1:
+        seg.values = {8h3,8h5,8hB,8h11};
+        
         compare.a = 16b0001010101010101;
         compare.b = 16b0010101010101011;
         compare.alufn = 6b110011;
@@ -45,6 +47,8 @@ module comparator_test (
           cmp_test.d = cmp_test.FAIL;
         }
       cmp_test.TEST2:
+        seg.values = {8h3,8h5,8hB,8h12};
+        
         compare.a = 16b1001010101000101;
         compare.b = 16b0001111010101111;
         compare.alufn = 6b110011;
@@ -56,6 +60,8 @@ module comparator_test (
           cmp_test.d = cmp_test.FAIL;
         }
       cmp_test.TEST3:
+        seg.values = {8h3,8h5,8hB,8h13};
+        
         compare.a = 16b1111000011100000;
         compare.b = 16b1111000011100000;
         compare.alufn = 6b110011;
@@ -67,6 +73,8 @@ module comparator_test (
           cmp_test.d = cmp_test.FAIL;
         }
       cmp_test.TEST4:
+        seg.values = {8h3,8h9,8hE,8h11};
+        
         compare.a = 16b0001010101010101;
         compare.b = 16b0010101010101011;
         compare.alufn = 6b110101;
@@ -78,6 +86,8 @@ module comparator_test (
           cmp_test.d = cmp_test.FAIL;
         }
       cmp_test.TEST5:
+        seg.values = {8h3,8h9,8hE,8h12};
+        
         compare.a = 16b1001010101000101;
         compare.b = 16b0001111010101111;
         compare.alufn = 6b110101;
@@ -89,6 +99,8 @@ module comparator_test (
           cmp_test.d = cmp_test.FAIL;
         }
       cmp_test.TEST6:
+        seg.values = {8h3,8h9,8hE,8h13};
+        
         compare.a = 16b1111000011100000;
         compare.b = 16b1111000011100000;
         compare.alufn = 6b110101;
@@ -100,6 +112,8 @@ module comparator_test (
           cmp_test.d = cmp_test.FAIL;
         }
       cmp_test.TEST7:
+        seg.values = {8h3,8h9,8h5,8h11};
+        
         compare.a = 16b0001010101010101;
         compare.b = 16b0010101010101011;
         compare.alufn = 6b110111;
@@ -111,6 +125,8 @@ module comparator_test (
           cmp_test.d = cmp_test.FAIL;
         }
       cmp_test.TEST8:
+        seg.values = {8h3,8h9,8h5,8h12};
+        
         compare.a = 16b1001010101000101;
         compare.b = 16b0001111010101111;
         compare.alufn = 6b110111;
@@ -122,6 +138,8 @@ module comparator_test (
           cmp_test.d = cmp_test.FAIL;
         }
       cmp_test.TEST9:
+        seg.values = {8h3,8h9,8h5,8h13};
+        
         compare.a = 16b1111000011100000;
         compare.b = 16b1111000011100000;
         compare.alufn = 6b110111;
