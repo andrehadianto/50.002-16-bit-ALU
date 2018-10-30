@@ -6,10 +6,15 @@ module adder (
   ) {
 
   always {
-    if(alufn[0] == 1){
-      adder = a - b;
-    } else {
-      adder = a + b;
-    }
+    case(alufn[1:0]) {
+      2b00:
+        adder = a + b;
+      2b01:
+        adder = a - b;
+      2b10:
+        adder = a * b;
+      default:
+        adder = 0;
+        }          
   }
 }
