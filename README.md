@@ -1,5 +1,4 @@
 # 50.002-16-bit-ALU
---
 ## Introduction
 The aim of the project is to design a working 16-bit ALU on an FPGA. We programmed the 16-bit ALU using MOJO IDE written in Lucid HDL tested on a Mojo V3 PGA Development Board. We refer to Lab 3 ALU documentation for the functions of the ALU which include these features: Adder, Multiplier, Boolean, Shifter, and Comparator, shown in the image below.
 <insert image>
