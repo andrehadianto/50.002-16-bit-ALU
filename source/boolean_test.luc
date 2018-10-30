@@ -1,0 +1,143 @@
+module adder_test (
+    input clk,  // clock
+    input rst,  // reset
+    input trigger,
+    
+    output io_led [3][8],   // LEDs on IO Shield
+    output io_seg [8],      // 7-segment LEDs on IO Shield
+    output io_sel [4]       // Digit select on IO Shield
+  ) {
+  boolean boolean;
+  
+  .clk(clk){
+    .rst(rst){
+      fsm boolean_test = {IDLE,TEST1,TEST2,TEST3,TEST4,TEST5,TEST6,TEST7,TEST8,TEST9,FAIL,PASS};
+      multi_seven_seg seg;
+      statecounter statectr;
+    }
+  }
+  always {
+    boolean.a = 0;
+    boolean.b = 0;
+    boolean.alufn = 6b0;
+    io_seg = 8hff;          // turn segments off
+    io_led = 3x{{8h00}};    // turn LEDs off
+
+    seg.values = {4h0,4h0,4h0,4h0}; 
+    io_seg = ~seg.seg; // Connect segments to the driver
+    io_sel = ~seg.sel; // Connect digit select to the driver
+    
+    case(boolean_test.q){
+      boolean_test.IDLE:
+        seg.values = {4h8,4h4,4h9,4h5};
+        if (trigger == 1){
+          boolean_test.d = boolean_test.TEST1;
+        }
+      boolean_test.TEST1:
+        boolean.a = 16b0001010101010101;
+        boolean.b = 16b0010101010101011;
+        boolean.alufn = 6b11000;
+        seg.values = boolean.segv;
+        if (boolean.boolean == 16b1 & statectr.msb == 1){
+          boolean_test.d = boolean_test.TEST2;
+        }
+        else if (statectr.msb == 1){
+          boolean_test.d = boolean_test.FAIL;
+        }
+      boolean_test.TEST2:
+        boolean.a = 16b1001010101000101;
+        boolean.b = 16b1010010101010111;
+        boolean.alufn = 6b11000;
+        seg.values = boolean.segv;
+        if (boolean.boolean == 16b1000010101000101 & statectr.msb == 1){
+          boolean_test.d = boolean_test.TEST3;
+        }
+        else if (statectr.msb == 1){
+          boolean_test.d = boolean_test.FAIL;
+        }
+      boolean_test.TEST3:
+        boolean.a = 16b1111000011100000;
+        boolean.b = 16b0000111111100101;
+        boolean.alufn = 6b110000;
+        seg.values = boolean.segv;
+        if (boolean.boolean == 16b11100000 & statectr.msb == 1){
+          boolean_test.d = boolean_test.TEST4;
+        }
+        else if (statectr.msb == 1){
+          boolean_test.d = boolean_test.FAIL;
+        }
+      boolean_test.TEST4:
+        boolean.a = 16b0001010101010101;
+        boolean.b = 16b0010101010101011;
+        boolean.alufn = 6b11110;
+        seg.values = boolean.segv;
+        if (boolean.boolean == 16b0011111111111111 & statectr.msb == 1){
+          boolean_test.d = boolean_test.TEST5;
+        }
+        else if (statectr.msb == 1){
+          boolean_test.d = boolean_test.FAIL;
+        }
+      boolean_test.TEST5:
+        boolean.a = 16b1001010101000101;
+        boolean.b = 16b1010010101010111;
+        boolean.alufn = 6b11110;
+        seg.values = boolean.segv;
+        if (boolean.boolean == 16b1011010101010111 & statectr.msb == 1){
+          boolean_test.d = boolean_test.TEST6;
+        }
+        else if (statectr.msb == 1){
+          boolean_test.d = boolean_test.FAIL;
+        }
+      boolean_test.TEST6:
+        boolean.a = 16b1111000011100000;
+        boolean.b = 16b0000111111100101;
+        boolean.alufn = 6b11110;
+        seg.values = boolean.segv;
+        if (boolean.boolean == 16b1111111111100101 & statectr.msb == 1){
+          boolean_test.d = boolean_test.TEST7;
+        }
+        else if (statectr.msb == 1){
+          boolean_test.d = boolean_test.FAIL;
+        }
+      boolean_test.TEST7:
+        boolean.a = 16b0001010101010101;
+        boolean.b = 16b0010101010101011;
+        boolean.alufn = 6b10110;
+        seg.values = boolean.segv;
+        if (boolean.boolean == 16b0001111111111110 & statectr.msb == 1){
+          boolean_test.d = boolean_test.TEST8;
+        }
+        else if (statectr.msb == 1){
+          boolean_test.d = boolean_test.FAIL;
+        }
+      boolean_test.TEST8:
+        boolean.a = 16b1001010101000101;
+        boolean.b = 16b1010010101010111;
+        boolean.alufn = 6b10110;
+        seg.values = boolean.segv;
+        if (boolean.boolean == 16b0011000000010010 & statectr.msb == 1){
+          boolean_test.d = boolean_test.TEST9;
+        }
+        else if (statectr.msb == 1){
+          boolean_test.d = boolean_test.FAIL;
+        }
+      boolean_test.TEST9:
+        boolean.a = 16b1111000011100000;
+        boolean.b = 16b0000111111100101;
+        boolean.alufn = 6b10110;
+        seg.values = boolean.segv;
+        if (boolean.boolean == 16b1111111100000101 & statectr.msb == 1){
+          boolean_test.d = boolean_test.PASS;
+        }
+        else if (statectr.msb == 1){
+          boolean_test.d = boolean_test.FAIL;
+        }
+      
+      boolean_test.PASS:
+        seg.values = {4hC,4h1,4hE,4hE};
+        
+      boolean_test.FAIL:
+        seg.values = {4h6,4h1,4h8,4h9};
+    }
+  }
+}

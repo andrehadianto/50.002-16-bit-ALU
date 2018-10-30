@@ -6,20 +6,20 @@ module shifter (
     output segv[4][4]
   ) {
 
-  sig xb[4];
+  sig shft[4];
   
   always {
-    xb = b[3:0];    
+    shft = b[3:0];    
     case (alufn[1:0]) {
       2b00:
         segv = {4h0,4hE,4h7,4h9};
-        shift = a << xb;  
+        shift = a << shft;  
       2b01:
         segv = {4h0,4hE,4h7,4hD};
-        shift = a >> xb;        
+        shift = a >> shft;        
       2b11:
         segv = {4h0,4hE,4hD,4h1};
-        shift = a >>> xb;      
+        shift = $signed(a) >>> shft;      
       default:
         shift = 0;
         segv = 4x{{4h0}};

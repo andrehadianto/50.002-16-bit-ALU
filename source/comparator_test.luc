@@ -1,0 +1,142 @@
+module adder_test (
+    input clk,  // clock
+    input rst,  // reset
+    input trigger,
+    
+    output io_led [3][8],   // LEDs on IO Shield
+    output io_seg [8],      // 7-segment LEDs on IO Shield
+    output io_sel [4]       // Digit select on IO Shield
+  ) {
+  compare compare;
+  
+  .clk(clk){
+    .rst(rst){
+      fsm cmp_test = {IDLE,TEST1,TEST2,TEST3,TEST4,TEST5,TEST6,TEST7,TEST8,TEST9,FAIL,PASS};
+      multi_seven_seg seg;
+      statecounter statectr;
+    }
+  }
+  always {
+    compare.a = 0;
+    compare.b = 0;
+    compare.alufn = 6b110011;
+    io_seg = 8hff;          // turn segments off
+    io_led = 3x{{8h00}};    // turn LEDs off
+
+    seg.values = {4h0,4h0,4h0,4h0}; 
+    io_seg = ~seg.seg; // Connect segments to the driver
+    io_sel = ~seg.sel; // Connect digit select to the driver
+    
+    case(cmp_test.q){
+      cmp_test.IDLE:
+        seg.values = {4h8,4h4,4h9,4h5};
+        if (trigger == 1){
+          cmp_test.d = cmp_test.TEST1;
+        }
+      cmp_test.TEST1:
+        compare.a = 16b0001010101010101;
+        compare.b = 16b0010101010101011;
+        compare.alufn = 6b110011;
+        seg.values = compare.segv;
+        if (compare.compare == 16b0 & statectr.msb == 1){
+          cmp_test.d = cmp_test.TEST2;
+        }
+        else if (statectr.msb == 1){
+          cmp_test.d = cmp_test.FAIL;
+        }
+      cmp_test.TEST2:
+        compare.a = 16b1001010101000101;
+        compare.b = 16b0001111010101111;
+        compare.alufn = 6b110011;
+        seg.values = compare.segv;
+        if (compare.compare == 16b0 & statectr.msb == 1){
+          cmp_test.d = cmp_test.TEST3;
+        }
+        else if (statectr.msb == 1){
+          cmp_test.d = cmp_test.FAIL;
+        }
+      cmp_test.TEST3:
+        compare.a = 16b1111000011100000;
+        compare.b = 16b1111000011100000;
+        compare.alufn = 6b110011;
+        seg.values = compare.segv;
+        if (compare.compare == 16b1 & statectr.msb == 1){
+          cmp_test.d = cmp_test.TEST4;
+        }
+        else if (statectr.msb == 1){
+          cmp_test.d = cmp_test.FAIL;
+        }
+      cmp_test.TEST4:
+        compare.a = 16b0001010101010101;
+        compare.b = 16b0010101010101011;
+        compare.alufn = 6b110101;
+        seg.values = compare.segv;
+        if (compare.compare == 16b0 & statectr.msb == 1){
+          cmp_test.d = cmp_test.TEST5;
+        }
+        else if (statectr.msb == 1){
+          cmp_test.d = cmp_test.FAIL;
+        }
+      cmp_test.TEST5:
+        compare.a = 16b1001010101000101;
+        compare.b = 16b0001111010101111;
+        compare.alufn = 6b110101;
+        seg.values = compare.segv;
+        if (compare.compare == 16b1 & statectr.msb == 1){
+          cmp_test.d = cmp_test.TEST6;
+        }
+        else if (statectr.msb == 1){
+          cmp_test.d = cmp_test.FAIL;
+        }
+      cmp_test.TEST6:
+        compare.a = 16b1111000011100000;
+        compare.b = 16b1111000011100000;
+        compare.alufn = 6b110101;
+        seg.values = compare.segv;
+        if (compare.compare == 16b0 & statectr.msb == 1){
+          cmp_test.d = cmp_test.TEST7;
+        }
+        else if (statectr.msb == 1){
+          cmp_test.d = cmp_test.FAIL;
+        }
+      cmp_test.TEST7:
+        compare.a = 16b0001010101010101;
+        compare.b = 16b0010101010101011;
+        compare.alufn = 6b110111;
+        seg.values = compare.segv;
+        if (compare.compare == 16b0 & statectr.msb == 1){
+          cmp_test.d = cmp_test.TEST8;
+        }
+        else if (statectr.msb == 1){
+          cmp_test.d = cmp_test.FAIL;
+        }
+      cmp_test.TEST8:
+        compare.a = 16b1001010101000101;
+        compare.b = 16b0001111010101111;
+        compare.alufn = 6b110111;
+        seg.values = compare.segv;
+        if (compare.compare == 16b1 & statectr.msb == 1){
+          cmp_test.d = cmp_test.TEST9;
+        }
+        else if (statectr.msb == 1){
+          cmp_test.d = cmp_test.FAIL;
+        }
+      cmp_test.TEST9:
+        compare.a = 16b1111000011100000;
+        compare.b = 16b1111000011100000;
+        compare.alufn = 6b110111;
+        seg.values = compare.segv;
+        if (compare.compare == 16b1 & statectr.msb == 1){
+          cmp_test.d = cmp_test.PASS;
+        }
+        else if (statectr.msb == 1){
+          cmp_test.d = cmp_test.FAIL;
+        }
+      cmp_test.PASS:
+        seg.values = {4hC,4h1,4hE,4hE};
+        
+      cmp_test.FAIL:
+        seg.values = {4h6,4h1,4h8,4h9};
+    }
+  }
+}
