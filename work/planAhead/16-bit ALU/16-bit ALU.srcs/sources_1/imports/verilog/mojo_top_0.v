@@ -174,7 +174,7 @@ module mojo_top_0 (
         M_seg_values = 32'h010f0e10;
       end
       TESTADDER1_state: begin
-        M_seg_values = 32'h00030308;
+        M_seg_values = 32'h01040411;
         M_alu_a = 16'h1555;
         M_alu_b = 16'h2aab;
         M_alu_alufn = 6'h00;
@@ -182,7 +182,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTADDER2_state: begin
-        M_seg_values = 32'h00030308;
+        M_seg_values = 32'h01040412;
         M_alu_a = 16'h9545;
         M_alu_b = 16'h1eaf;
         M_alu_alufn = 6'h00;
@@ -190,7 +190,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTADDER3_state: begin
-        M_seg_values = 32'h00030308;
+        M_seg_values = 32'h01040413;
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0f20;
         M_alu_alufn = 6'h00;
@@ -198,7 +198,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTADDER4_state: begin
-        M_seg_values = 32'h00030308;
+        M_seg_values = 32'h150f0211;
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0020;
         M_alu_alufn = 6'h01;
@@ -206,7 +206,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTADDER5_state: begin
-        M_seg_values = 32'h00030308;
+        M_seg_values = 32'h150f0212;
         M_alu_a = 16'h1e7f;
         M_alu_b = 16'h0555;
         M_alu_alufn = 6'h01;
@@ -214,7 +214,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTADDER6_state: begin
-        M_seg_values = 32'h00030308;
+        M_seg_values = 32'h150f0213;
         M_alu_a = 16'h8000;
         M_alu_b = 16'h0001;
         M_alu_alufn = 6'h01;
@@ -222,7 +222,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTADDER7_state: begin
-        M_seg_values = 32'h00030308;
+        M_seg_values = 32'h0a0f0911;
         M_alu_a = 16'h0000;
         M_alu_b = 16'h0001;
         M_alu_alufn = 6'h02;
@@ -230,7 +230,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTADDER8_state: begin
-        M_seg_values = 32'h00030308;
+        M_seg_values = 32'h0a0f0912;
         M_alu_a = 16'h0002;
         M_alu_b = 16'h0009;
         M_alu_alufn = 6'h02;
@@ -238,7 +238,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTADDER9_state: begin
-        M_seg_values = 32'h00030308;
+        M_seg_values = 32'h0a0f0913;
         M_alu_a = 16'h01c0;
         M_alu_b = 16'h0007;
         M_alu_alufn = 6'h02;
@@ -246,7 +246,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTBOOL1_state: begin
-        M_seg_values = 32'h01030308;
+        M_seg_values = 32'h010a0411;
         M_alu_a = 16'h1555;
         M_alu_b = 16'h2aab;
         M_alu_alufn = 6'h10;
@@ -254,7 +254,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTBOOL2_state: begin
-        M_seg_values = 32'h0103030f;
+        M_seg_values = 32'h010a0412;
         M_alu_a = 16'h9545;
         M_alu_b = 16'ha557;
         M_alu_alufn = 6'h10;
@@ -262,7 +262,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTBOOL3_state: begin
-        M_seg_values = 32'h0103030e;
+        M_seg_values = 32'h010a0413;
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0fe5;
         M_alu_alufn = 6'h10;
@@ -270,7 +270,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTBOOL4_state: begin
-        M_seg_values = 32'h01030306;
+        M_seg_values = 32'h00160d11;
         M_alu_a = 16'h1555;
         M_alu_b = 16'h2aab;
         M_alu_alufn = 6'h1e;
@@ -278,7 +278,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTBOOL5_state: begin
-        M_seg_values = 32'h01030306;
+        M_seg_values = 32'h00160d12;
         M_alu_a = 16'h9545;
         M_alu_b = 16'ha557;
         M_alu_alufn = 6'h1e;
@@ -286,7 +286,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTBOOL6_state: begin
-        M_seg_values = 32'h01030306;
+        M_seg_values = 32'h00160d13;
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0fe5;
         M_alu_alufn = 6'h1e;
@@ -294,7 +294,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTBOOL7_state: begin
-        M_seg_values = 32'h01030306;
+        M_seg_values = 32'h07160d11;
         M_alu_a = 16'h1555;
         M_alu_b = 16'h2aab;
         M_alu_alufn = 6'h16;
@@ -302,7 +302,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTBOOL8_state: begin
-        M_seg_values = 32'h01030306;
+        M_seg_values = 32'h07160d12;
         M_alu_a = 16'h9545;
         M_alu_b = 16'ha557;
         M_alu_alufn = 6'h16;
@@ -310,7 +310,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTBOOL9_state: begin
-        M_seg_values = 32'h01030306;
+        M_seg_values = 32'h07160d13;
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0fe5;
         M_alu_alufn = 6'h16;
@@ -318,7 +318,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTSHIFT1_state: begin
-        M_seg_values = 32'h09070508;
+        M_seg_values = 32'h15070911;
         M_alu_a = 16'h1555;
         M_alu_b = 16'h0001;
         M_alu_alufn = 6'h20;
@@ -326,7 +326,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTSHIFT2_state: begin
-        M_seg_values = 32'h09070508;
+        M_seg_values = 32'h15070912;
         M_alu_a = 16'h9545;
         M_alu_b = 16'h000f;
         M_alu_alufn = 6'h20;
@@ -334,7 +334,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTSHIFT3_state: begin
-        M_seg_values = 32'h09070508;
+        M_seg_values = 32'h15070913;
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0f25;
         M_alu_alufn = 6'h20;
@@ -342,7 +342,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTSHIFT4_state: begin
-        M_seg_values = 32'h09070508;
+        M_seg_values = 32'h15070d11;
         M_alu_a = 16'h1555;
         M_alu_b = 16'h0001;
         M_alu_alufn = 6'h21;
@@ -350,7 +350,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTSHIFT5_state: begin
-        M_seg_values = 32'h09070508;
+        M_seg_values = 32'h15070d12;
         M_alu_a = 16'h9545;
         M_alu_b = 16'h000f;
         M_alu_alufn = 6'h21;
@@ -358,7 +358,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTSHIFT6_state: begin
-        M_seg_values = 32'h09070508;
+        M_seg_values = 32'h15070d13;
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0f25;
         M_alu_alufn = 6'h21;
@@ -366,7 +366,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTSHIFT7_state: begin
-        M_seg_values = 32'h09070508;
+        M_seg_values = 32'h150d0111;
         M_alu_a = 16'h1555;
         M_alu_b = 16'h0001;
         M_alu_alufn = 6'h23;
@@ -374,7 +374,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTSHIFT8_state: begin
-        M_seg_values = 32'h09070508;
+        M_seg_values = 32'h150d0112;
         M_alu_a = 16'h9545;
         M_alu_b = 16'h000f;
         M_alu_alufn = 6'h23;
@@ -382,7 +382,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTSHIFT9_state: begin
-        M_seg_values = 32'h09070508;
+        M_seg_values = 32'h150d0113;
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'h0f25;
         M_alu_alufn = 6'h23;
@@ -390,7 +390,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTCMP1_state: begin
-        M_seg_values = 32'h0a0a010b;
+        M_seg_values = 32'h03050b11;
         M_alu_a = 16'h1555;
         M_alu_b = 16'h2aab;
         M_alu_alufn = 6'h33;
@@ -398,7 +398,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTCMP2_state: begin
-        M_seg_values = 32'h0a0a010b;
+        M_seg_values = 32'h03050b12;
         M_alu_a = 16'h9545;
         M_alu_b = 16'h1eaf;
         M_alu_alufn = 6'h33;
@@ -406,7 +406,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTCMP3_state: begin
-        M_seg_values = 32'h0a0a010b;
+        M_seg_values = 32'h03050b13;
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'hf0e0;
         M_alu_alufn = 6'h33;
@@ -414,7 +414,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTCMP4_state: begin
-        M_seg_values = 32'h0a0a010b;
+        M_seg_values = 32'h03090e11;
         M_alu_a = 16'h1555;
         M_alu_b = 16'h2aab;
         M_alu_alufn = 6'h35;
@@ -422,7 +422,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTCMP5_state: begin
-        M_seg_values = 32'h0a0a010b;
+        M_seg_values = 32'h03090e12;
         M_alu_a = 16'h9545;
         M_alu_b = 16'h1eaf;
         M_alu_alufn = 6'h35;
@@ -430,7 +430,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTCMP6_state: begin
-        M_seg_values = 32'h0a0a010b;
+        M_seg_values = 32'h03090e13;
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'hf0e0;
         M_alu_alufn = 6'h35;
@@ -438,7 +438,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTCMP7_state: begin
-        M_seg_values = 32'h0a0a010b;
+        M_seg_values = 32'h03090511;
         M_alu_a = 16'h1555;
         M_alu_b = 16'h2aab;
         M_alu_alufn = 6'h37;
@@ -446,7 +446,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTCMP8_state: begin
-        M_seg_values = 32'h0a0a010b;
+        M_seg_values = 32'h03090512;
         M_alu_a = 16'h9545;
         M_alu_b = 16'h1eaf;
         M_alu_alufn = 6'h37;
@@ -454,7 +454,7 @@ module mojo_top_0 (
         io_led[0+7-:8] = M_alu_out[0+7-:8];
       end
       TESTCMP9_state: begin
-        M_seg_values = 32'h0a0a010b;
+        M_seg_values = 32'h03090513;
         M_alu_a = 16'hf0e0;
         M_alu_b = 16'hf0e0;
         M_alu_alufn = 6'h37;
@@ -465,7 +465,7 @@ module mojo_top_0 (
         M_seg_values = 32'h0c011515;
       end
       FAIL_state: begin
-        M_seg_values = 32'h05000806;
+        M_seg_values = 32'h06010809;
       end
     endcase
     if (M_counter_q[0+26-:27] == 1'h0) begin
