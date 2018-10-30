@@ -32,7 +32,7 @@ module boolean_test (
         seg.values = {4h8,4h4,4h9,4h5};
         if (trigger == 1){
           boolean_test.d = boolean_test.TEST1;
-        }
+        }    
       boolean_test.TEST1:
         boolean.a = 16b0001010101010101;
         boolean.b = 16b0010101010101011;

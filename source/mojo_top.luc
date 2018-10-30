@@ -61,11 +61,14 @@ module mojo_top (
         if (io_button[3] == 1){
           state.d = state.A;
         }
-        if (io_button[0] == 1){
+        else if (io_button[0] == 1){
           state.d = state.ALUF;
         }
-        else if (io_button[2] ==1){
+        else if (io_button[4] ==1){
           state.d = state.TEST;
+        }
+        else if (io_button[1] ==1){
+          state.d = state.AUTO;
         }
         
       state.A:
@@ -96,7 +99,7 @@ module mojo_top (
           io_led[2][7:2] = io_dip[2][7:2];
           alufn.d = io_dip[2][7:2];
         }
-        if (io_button[2] == 1){
+        if (io_button[4] == 1){
           state.d = state.TEST;
         }
           

@@ -32,7 +32,7 @@ module shifter_test (
         seg.values = {4h8,4h4,4h9,4h5};
         if (trigger == 1){
           shifter_test.d = shifter_test.TEST1;
-        }
+        }    
       shifter_test.TEST1:
         shifter.a = 16b01010101010101;
         shifter.b = 16b1;
