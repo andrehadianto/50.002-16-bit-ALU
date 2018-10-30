@@ -117,7 +117,7 @@ module mojo_top (
         alu.a = 16b0001010101010101;
         alu.b = 16b0010101010101011;
         alu.alufn = 6b0;       
-        if (io_dip[2][7] == 1){
+        if (io_dip[2][7] == 1){          // Scrambler, when the dip is switched on, it will trigger wrong value for input a and b resulting in failing the test cases
           alu.a = 16b0;
           alu.b = 16b0;          
         }

@@ -32,9 +32,6 @@ module alu (
         out = alushift.shift;  
 
       default: out = 0;  
-    } 
-    
-    
-    
+    }   
   }
 }
